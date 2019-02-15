@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Gender">
+        <!-- FALTA TRADUCIR ESTE ARRAY A INGLÉS Y FRANCÉS-->
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+</resources>

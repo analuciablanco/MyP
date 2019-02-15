@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:fitsSystemWindows="true">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="45dp"
+            android:contentDescription="@string/app_logo"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayoutEmail"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayoutEmail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- Email -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutEmail"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="427dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Password -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutPassword"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Password Confirmation -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutPasswordConfirmation"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword">
+
+
+            <EditText
+                android:id="@+id/confirmpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt2_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Name(s) -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutUserName"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPasswordConfirmation">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:inputType="textCapWords" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- First Last Name -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutFirstLastName"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUserName">
+
+            <AutoCompleteTextView
+                android:id="@+id/lastname1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_first_last_name"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Second Last Name -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutSecondLastName"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFirstLastName">
+
+            <AutoCompleteTextView
+                android:id="@+id/lastname2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_second_last_name"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Phone -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutPhone"
+            android:layout_width="330dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSecondLastName">
+
+            <AutoCompleteTextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_phone"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Gender -->
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="333dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPhone"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayoutPhone"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone">
+
+            <!-- Gender Label -->
+            <TextView
+                android:id="@+id/Genero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="@string/lbl_gender"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <!-- Gender Spinner -->
+            <Spinner
+                android:id="@+id/mispinner"
+                android:layout_width="140dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:entries="@array/Gender" />
+        </LinearLayout>
+
+        <!-- Registration Button -->
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="434dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundedbutton"
+            android:backgroundTint="@color/colorAzulFuerte"
+            android:text="@string/register"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+        <!-- Back to Login -->
+        <TextView
+            android:id="@+id/textViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:text="@string/back_to_login"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

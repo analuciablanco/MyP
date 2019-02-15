@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Teachers and Parents</string>
+    <string name="app_logo">MyPLogo</string>
+
+    <string name="create_account"><font color="#00ff00">text</font></string>
+    <string name="forgotten_password"><font color="#7EE77E">text</font></string>
+    <string name="prompt_email">Email Address</string>
+    <string name="prompt_password">Password</string>
+    <string name="login">Log in</string>
+    <string name="username">Name</string>
+    <string name="register">Register</string>
+    <string name="back_to_login">Return to Log In</string>
+
+    <string name="prompt2_password">Confirm Password</string>
+    <string name="prompt_first_last_name">First Last Name</string>
+    <string name="prompt_second_last_name">Second Last Name (Optional)</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="lbl_gender">Gender</string>
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_password_confirmation">Passwords do not match</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="no_account">No account? Register</string>
+
+    <!-- FALTA TRADUCIR EL STRING-ARRAY! -->
+</resources>
