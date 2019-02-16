@@ -225,7 +225,7 @@
         <!-- Registration Button -->
         <Button
             android:id="@+id/buttonRegister"
-            android:layout_width="330dp"
+            android:layout_width="340dp"
             android:layout_height="65dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"
