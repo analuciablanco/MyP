@@ -1,7 +1,10 @@
 package com.example.myp;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +14,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,24 +44,71 @@ public class RegisterActivity extends AppCompatActivity {
     //Declaration Button
     Button buttonRegister;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initTextViewLogin();
         initViews();
+        mAuth = FirebaseAuth.getInstance();
+
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (attemptRegistration()) {
+
                     String UserName = editTextUserName.getText().toString();
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+
+                    crearUsuario(UserName,Email,Password);
+
                 }
             }
         });
     }
 
+    public void crearUsuario(final String User, final String Email, String Password){
+            mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                      showMessage("Registro de usuario hecho exitosamente.");
+                      updateUserInfo(mAuth.getCurrentUser());
+                    }
+                    else{
+                        showMessage("Registro de usuario ha fallado.");
+                    }
+                }
+            });
+    }
+
+    private void updateUserInfo(FirebaseUser currentUser) {
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().build();
+        currentUser.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    showMessage("Registro completado.");
+                    updateUI();
+                }
+            }
+        });
+    }
+
+    private void updateUI() {
+
+        Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(loginActivity);
+        finish();
+
+
+    }
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
     public boolean attemptRegistration() {
         //Validación variables
         boolean autenticacion = false;
