@@ -214,18 +214,18 @@
 
             <!-- Gender Spinner -->
             <Spinner
-                android:id="@+id/mispinner"
+                android:id="@+id/GeneroSpinner"
                 android:layout_width="140dp"
                 android:layout_height="28dp"
                 android:layout_gravity="end"
                 android:layout_weight="1"
-                android:entries="@array/Gender" />
+                android:entries="@array/select_gender" />
         </LinearLayout>
 
         <!-- Registration Button -->
         <Button
             android:id="@+id/buttonRegister"
-            android:layout_width="330dp"
+            android:layout_width="340dp"
             android:layout_height="65dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"

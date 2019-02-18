@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "384559596124",
+    "firebase_url": "https://maestrosypadresfirebase.firebaseio.com",
+    "project_id": "maestrosypadresfirebase",
+    "storage_bucket": "maestrosypadresfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384559596124:android:8f7154798cd69702",
+        "android_client_info": {
+          "package_name": "com.example.myp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384559596124-n5sh0nng2d1qmv6l2a3abiqcdfm4rkh5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myp",
+            "certificate_hash": "ad312ee0201b521d04ba4214ae45f5b41e03d69a"
+          }
+        },
+        {
+          "client_id": "384559596124-7bieoah0ssha59dpb32c5uv7hnjpe9ip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4TYmfVaqK6WHFRj4BphSVANHzAdzuJtk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384559596124-7bieoah0ssha59dpb32c5uv7hnjpe9ip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
