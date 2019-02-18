@@ -80,7 +80,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        //startActivity(HomeActivity); Aqui deberia de enviarlo a la pantalle de home de la appa despues de haber iniciado sesion
+
+        Intent home = new Intent(getApplicationContext(), Home.class);
+        startActivity(home); //Aqui deberia de enviarlo a la pantalle de home de la appa despues de haber iniciado sesion
         showMessage("Has iniciado sesion exitosamente.");
     }
 
