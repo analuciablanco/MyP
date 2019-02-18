@@ -1,13 +1,17 @@
 package com.example.myp;
+
 import android.media.SoundPool;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.text.Spanned;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,11 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPassword;
 
-    //Declaration TextInputLayout
+    // Declaration TextInputLayout
     TextInputLayout textInputLayoutEmail;
     TextInputLayout textInputLayoutPassword;
 
-    //Declaration Button
+    // Declaration Button
     Button buttonLogin;
 
     //Declaracion  variable autenticacion
@@ -45,17 +49,18 @@ public class LoginActivity extends AppCompatActivity {
         initCreateAccountTextView();
         initViews();
 
-        //set click event of login button
+        // Set click event of login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Check user input is correct or not
+                // Check if user input is correct or not
                 if (validate()) {
-
-                    //Get values from EditText fields
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+
+                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+
                     signIn(Email, Password);
                 }
             }
@@ -78,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+    // this method used to set Create account TextView text and click event( maltipal colors
     private void updateUI() {
         showMessage("Has iniciado sesion exitosamente.");
     }
@@ -116,18 +123,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //this method is used to connect XML views to its Objects
+    // This method is used to connect XML views to its Objects
     private void initViews() {
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
         textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
         textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
-
     }
 
-    //This method is for handling fromHtml method deprecation
-    @SuppressWarnings("deprecation")
+    // This method is for handling fromHtml method deprecation
     public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -138,36 +143,64 @@ public class LoginActivity extends AppCompatActivity {
         return result;
     }
 
-    //This method is used to validate input given by user
+    // This method is used to validate input given by user
     public boolean validate() {
-        boolean valid = false;
+        // Validación de variables
+        boolean validation = false;
 
-        //Get values from EditText fields
+        // Store values at the time of the registration attempt
         String Email = editTextEmail.getText().toString();
         String Password = editTextPassword.getText().toString();
 
-        //Handling validation for Email field
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
-            valid = false;
-            textInputLayoutEmail.setError(getString(R.string.error_invalid_email));
-        } else {
-            valid = true;
-            textInputLayoutEmail.setError(null);
-        }
+        // Validación de los campos requeridos (si cancel es true es porque un campo está vacío)
+        boolean cancel = false;
+
+        // Redirige al campo donde focusView sea diferente de null
+        View focusView = null;
+
+        // TextInputLayout
+        textInputLayoutEmail    = findViewById(R.id.textInputLayoutEmail);
+        textInputLayoutPassword = findViewById(R.id.textInputLayoutPassword);
 
         //Handling validation for Password field
-        if (Password.isEmpty()) {
-            valid = false;
-            textInputLayoutPassword.setError(getString(R.string.error_incorrect_password));
+        if (TextUtils.isEmpty(Password)) {
+            editTextPassword.setError(getString(R.string.error_field_required));
+            focusView = editTextPassword;
+            cancel = true;
+        } else if (!isPasswordValid(Password)) {
+            editTextPassword.setError(getString(R.string.error_invalid_password));
+            focusView = editTextPassword;
+            cancel = true;
+        } else editTextPassword.setError(null);
+
+        // Handling validation for Email field
+        if (Email.isEmpty()) {
+            cancel = true;
+            focusView = editTextEmail;
+            editTextEmail.setError(getString(R.string.error_field_required));
+        } else if (!isEmailValid(Email)) {
+            cancel = true;
+            focusView = editTextEmail;
+            editTextEmail.setError(getString(R.string.error_invalid_email));
         } else {
-            if (Password.length() > 5) {
-                valid = true;
-                textInputLayoutPassword.setError(null);
-            } else {
-                valid = false;
-                textInputLayoutPassword.setError(getString(R.string.error_invalid_password));
-            }
+            editTextEmail.setError(null);
         }
-        return valid;
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            validation = true;
+        }
+        return validation;
+    }
+
+    private boolean isPasswordValid(String password) {
+        return (password.length() > 7);
+    }
+
+    private boolean isEmailValid(String email) {
+        return (email.contains("@") && email.contains("."));
     }
 }

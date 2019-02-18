@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Teachers and Parents</string>
+
     <string name="app_logo">MyPLogo</string>
 
     <string name="create_account"><font color="#00ff00">text</font></string>
@@ -29,4 +30,25 @@
 
 
     <!-- FALTA TRADUCIR EL STRING-ARRAY! -->
+
+    <string name="grade">Grado:</string>>
+    <string name="group">Grupo:</string>>
+    <string name="school">Escuela:</string>>
+    <string name="school_name_hint">Nombre de la escuela</string>>
+    <string name="create">CREAR</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Nombre de Maestros</string>
+    <string name="nav_header_subtitle">Tipo de usuario</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Opciones</string>
+    <string name="messages">Mensajes</string>
+    <string name="memos">Avisos escolares</string>
+    <string name="user_tools">Herramientas del usuario</string>
+    <string name="create_classroom">Crear un aula</string>
+    <string name="join_classroom">Unirse a un aula</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="next">Siguiente</string>
+    <string name="share_explanation">Inserte el código que el maestro le compartió para poder ingresar al aula virtual.</string>
+    <string name="insert_code">Intruduce el código</string>
 </resources>
