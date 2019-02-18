@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="Gender">
+    <string-array name="select_gender">
         <!-- FALTA TRADUCIR ESTE ARRAY A INGLÉS Y FRANCÉS-->
         <item>Masculino</item>
         <item>Femenino</item>

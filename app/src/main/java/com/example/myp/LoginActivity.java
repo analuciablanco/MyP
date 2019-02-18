@@ -16,12 +16,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
-
     //Declaration EditTexts
     EditText editTextEmail;
     EditText editTextPassword;
@@ -34,11 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     Button buttonLogin;
 
     //Declaracion variable autenticacion
-
-    private FirebaseAuth mAuth;
-
-    // Declaracion de intent activity home
-    //Intent HomeActivity
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initCreateAccountTextView();
         initViews();
-        mAuth = FirebaseAuth.getInstance();
         //HomeActivity = new Intent(this,com.example.myp.HomeActivity)
 
         //set click event of login button
