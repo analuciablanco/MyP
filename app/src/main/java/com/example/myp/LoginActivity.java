@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     //Declaration Button
     Button buttonLogin;
 
-    //Declaracion variable autenticacion
+    //Declaracion  variable autenticacion
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
