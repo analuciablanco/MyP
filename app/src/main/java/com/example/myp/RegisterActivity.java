@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String FirstLastName    = editTextFirstLastName.getText().toString();
                     String SecondLastName   = editTextSecondLastName.getText().toString();
                     String Phone            = editTextPhone.getText().toString();
-                    String Genero           = spinnerGenero.toString();
+                    String Genero           = spinnerGenero.getSelectedItem().toString();
 
                     String FullName         = UserName + " " + FirstLastName + " " + SecondLastName;
 

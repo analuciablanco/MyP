@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initCreateAccountTextView();
         initViews();
-        //HomeActivity = new Intent(this,com.example.myp.HomeActivity)
 
         //set click event of login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -73,16 +72,13 @@ public class LoginActivity extends AppCompatActivity {
                     updateUI();
                 }
                 else{
-                    showMessage(task.getException().getMessage());
+                    showMessage("No existe la cuenta ingresada.");
                 }
             }
         });
     }
 
     private void updateUI() {
-
-        Intent home = new Intent(getApplicationContext(), Home.class);
-        startActivity(home); //Aqui deberia de enviarlo a la pantalle de home de la appa despues de haber iniciado sesion
         showMessage("Has iniciado sesion exitosamente.");
     }
 
