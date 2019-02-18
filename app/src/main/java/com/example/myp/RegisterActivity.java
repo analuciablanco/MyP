@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,25 +66,29 @@ public class RegisterActivity extends AppCompatActivity {
                     String Password = editTextPassword.getText().toString();
 
                     crearUsuario(UserName,Email,Password);
-
                 }
             }
         });
     }
 
     public void crearUsuario(final String User, final String Email, String Password){
-            mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                      showMessage("Registro de usuario hecho exitosamente.");
-                      updateUserInfo(mAuth.getCurrentUser());
-                    }
-                    else{
-                        showMessage("Registro de usuario ha fallado.");
-                    }
+            mAuth.createUserWithEmailAndPassword(Email, Password)
+
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                              showMessage("Registro de usuario exitoso.");
+                              updateUserInfo(mAuth.getCurrentUser());
+                            }
                 }
-            });
+            })
+                    .addOnFailureListener(this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                                showMessage("Fallo en el registro de usuario.");
+                        }
+                    });
     }
 
     private void updateUserInfo(FirebaseUser currentUser) {

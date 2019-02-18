@@ -1,4 +1,6 @@
 package com.example.myp;
+import android.media.SoundPool;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -10,6 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,6 +33,13 @@ public class LoginActivity extends AppCompatActivity {
     //Declaration Button
     Button buttonLogin;
 
+    //Declaracion variable autenticacion
+
+    private FirebaseAuth mAuth;
+
+    // Declaracion de intent activity home
+    //Intent HomeActivity
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
 
         initCreateAccountTextView();
         initViews();
+        mAuth = FirebaseAuth.getInstance();
+        //HomeActivity = new Intent(this,com.example.myp.HomeActivity)
 
         //set click event of login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -43,11 +61,51 @@ public class LoginActivity extends AppCompatActivity {
                     //Get values from EditText fields
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+                    signIn(Email, Password);
                 }
             }
         });
     }
 
+    private void signIn(String email, String password) {
+
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    updateUI();
+                }
+                else{
+                    showMessage(task.getException().getMessage());
+                }
+            }
+        });
+    }
+
+    private void updateUI() {
+        //startActivity(HomeActivity); Aqui deberia de enviarlo a la pantalle de home de la appa despues de haber iniciado sesion
+        showMessage("Has iniciado sesion exitosamente.");
+    }
+
+    private void showMessage(String text) {
+
+        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user != null) {
+            //user is already connected  so we need to redirect him to home page
+            updateUI();
+
+        }
+
+
+
+    }
     //this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)
     private void initCreateAccountTextView() {
