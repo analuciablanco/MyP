@@ -17,7 +17,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        LinearLayout joinclassroom = (LinearLayout)findViewById(R.id.CreateClassroom);
+        LinearLayout joinclassroom = findViewById(R.id.JoinClassroom);
         joinclassroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

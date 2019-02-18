@@ -1,11 +1,7 @@
 package com.example.myp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,14 +19,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editTextFirstLastName;
     EditText editTextPhone;
 
-    // Declaration TextInputLayout
-    TextInputLayout textInputLayoutUserName;
-    TextInputLayout textInputLayoutEmail;
-    TextInputLayout textInputLayoutPassword;
-    TextInputLayout textInputLayoutPasswordConfirmation;
-    TextInputLayout textInputLayoutFirstLastName;
-    TextInputLayout textInputLayoutPhone;
-
     // Declaration Button
     Button buttonRegister;
 
@@ -38,20 +26,22 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         initTextViewLogin();
         initViews();
+
+        // Set click event of Back to Login Link
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Check if user input is correct or not
                 if (attemptRegistration()) {
                     String UserName = editTextUserName.getText().toString();
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
 
                     // Back to LoginActivity
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     finish();
-                    startActivity(intent);
                 }
             }
         });
@@ -171,14 +161,6 @@ public class RegisterActivity extends AppCompatActivity {
         editTextConfirmPassword     = (EditText) findViewById(R.id.confirmpassword);
         editTextFirstLastName       = (EditText) findViewById(R.id.lastname1);
         editTextPhone               = (EditText) findViewById(R.id.phone);
-
-        //textInputLayout
-        textInputLayoutEmail                    = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
-        textInputLayoutPassword                 = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
-        textInputLayoutUserName                 = (TextInputLayout) findViewById(R.id.textInputLayoutUserName);
-        textInputLayoutPasswordConfirmation     = (TextInputLayout) findViewById(R.id.textInputLayoutPasswordConfirmation);
-        textInputLayoutFirstLastName            = (TextInputLayout) findViewById(R.id.textInputLayoutFirstLastName);
-        textInputLayoutPhone                    = (TextInputLayout) findViewById(R.id.textInputLayoutPhone);
 
         //button
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
