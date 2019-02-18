@@ -26,6 +26,9 @@
     <string name="error_field_required">This field is required</string>
     <string name="no_account">No account? Register</string>
 
+    <string name="home_name">Elige tu tipo de usuario</string>
+
+
     <!-- FALTA TRADUCIR EL STRING-ARRAY! -->
 
     <string name="grade">Grado:</string>>
