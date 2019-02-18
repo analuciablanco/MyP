@@ -27,6 +27,43 @@
 
     <string name="home_name">Elige tu tipo de usuario</string>
 
+    <string name="app_name_home">Configura tu aula</string>
 
+    <string-array name="Select_Num_Salon">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+
+    </string-array>
+
+    <string-array name="Select_letra_Grupo">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
     <!-- FALTA TRADUCIR EL STRING-ARRAY! -->
 </resources>

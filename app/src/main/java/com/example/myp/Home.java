@@ -9,19 +9,21 @@ import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
-    Button botonCrearAula;
+    Button botonLlamar;
     //Intent homeActivity;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-        botonCrearAula.setOnClickListener(new View.OnClickListener() {
+        botonLlamar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             Intent homeActivity = new Intent(getApplicationContext(), HomeActivity.class);
-             startActivity(homeActivity);
+             Intent createClassroom = new Intent(getApplicationContext(), createClassroom.class);
+             startActivity(createClassroom);
              finish();
             }
         });

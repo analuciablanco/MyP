@@ -141,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage("RFallo en el registro de usuario.");
+                        showMessage("Fallo en el registro de usuario.");
                     }
                 });
 
