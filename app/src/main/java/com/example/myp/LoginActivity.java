@@ -13,15 +13,15 @@ import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //Declaration EditTexts
+    // Declaration EditTexts
     EditText editTextEmail;
     EditText editTextPassword;
 
-    //Declaration TextInputLayout
+    // Declaration TextInputLayout
     TextInputLayout textInputLayoutEmail;
     TextInputLayout textInputLayoutPassword;
 
-    //Declaration Button
+    // Declaration Button
     Button buttonLogin;
 
     @Override
@@ -37,18 +37,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Check user input is correct or not
+                //Check if user input is correct or not
                 if (validate()) {
 
                     //Get values from EditText fields
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+
+                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                    finish();
+                    startActivity(intent);
                 }
             }
         });
     }
 
-    //this method used to set Create account TextView text and click event( maltipal colors
+    // this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)
     private void initCreateAccountTextView() {
 
@@ -64,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //this method is used to connect XML views to its Objects
+    // This method is used to connect XML views to its Objects
     private void initViews() {
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
@@ -74,8 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //This method is for handling fromHtml method deprecation
-    @SuppressWarnings("deprecation")
+    // This method is for handling fromHtml method deprecation
     public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -86,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         return result;
     }
 
-    //This method is used to validate input given by user
+    // This method is used to validate input given by user
     public boolean validate() {
         boolean valid = false;
 

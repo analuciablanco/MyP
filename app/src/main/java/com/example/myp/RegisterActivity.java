@@ -1,5 +1,6 @@
 package com.example.myp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    //Declaration EditTexts
+    // Declaration EditTexts
     EditText editTextUserName;
     EditText editTextEmail;
     EditText editTextPassword;
@@ -22,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editTextFirstLastName;
     EditText editTextPhone;
 
-    //Declaration TextInputLayout
+    // Declaration TextInputLayout
     TextInputLayout textInputLayoutUserName;
     TextInputLayout textInputLayoutEmail;
     TextInputLayout textInputLayoutPassword;
@@ -30,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout textInputLayoutFirstLastName;
     TextInputLayout textInputLayoutPhone;
 
-    //Declaration Button
+    // Declaration Button
     Button buttonRegister;
 
     @Override
@@ -46,13 +47,18 @@ public class RegisterActivity extends AppCompatActivity {
                     String UserName = editTextUserName.getText().toString();
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+
+                    // Back to LoginActivity
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    finish();
+                    startActivity(intent);
                 }
             }
         });
     }
 
     public boolean attemptRegistration() {
-        //Validación variables
+        // Validación de variables
         boolean autenticacion = false;
 
         // Store values at the time of the registration attempt.
@@ -63,10 +69,10 @@ public class RegisterActivity extends AppCompatActivity {
         String firstlastname    = editTextFirstLastName.getText().toString();
         String phone            = editTextPhone.getText().toString();
 
-        //Validación de los campos requeridos (si cancel es true es porque un campo está vacío)
+        // Validación de los campos requeridos (si cancel es true es porque un campo está vacío)
         boolean cancel = false;
 
-        //Redirige al campo donde focusView sea diferente de null
+        // Redirige al campo donde focusView sea diferente de null
         View focusView = null;
 
         // Require phone.
@@ -145,9 +151,9 @@ public class RegisterActivity extends AppCompatActivity {
         return (password.equals(passwordconfirm));
     }
 
-    //this method used to set Login TextView click event
+    // This method used to set Login TextView click event
     private void initTextViewLogin() {
-        TextView textViewLogin = (TextView) findViewById(R.id.textViewLogin);
+        TextView textViewLogin = findViewById(R.id.textViewLogin);
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    //this method is used to connect XML views to its Objects
+    // This method is used to connect XML views to its Objects
     private void initViews() {
         //editText
         editTextEmail               = (EditText) findViewById(R.id.email);
