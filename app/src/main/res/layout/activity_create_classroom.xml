@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <Spinner
-            android:id="@+id/Grado"
+            android:id="@+id/Grupo"
             android:layout_width="197dp"
             android:layout_height="38dp"
             android:layout_marginTop="32dp"
@@ -19,7 +20,8 @@
             android:dropDownWidth="match_parent"
             android:spinnerMode="dialog"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Grupo" />
+            app:layout_constraintTop_toBottomOf="@+id/Grado"
+            android:entries="@array/select_group"/>
 
 
         <TextView
@@ -31,20 +33,21 @@
             android:layout_marginEnd="8dp"
             android:text="@string/grade"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/Grupo"
+            app:layout_constraintEnd_toStartOf="@+id/Grado"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <Spinner
-            android:id="@+id/Grupo"
+            android:id="@+id/Grado"
             android:layout_width="197dp"
             android:layout_height="42dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="20dp"
             android:spinnerMode="dialog"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:entries="@array/select_grade"/>
 
         <TextView
             android:id="@+id/lbl_grupo"
@@ -55,7 +58,7 @@
             android:layout_marginEnd="8dp"
             android:text="@string/group"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/Grado"
+            app:layout_constraintEnd_toStartOf="@+id/Grupo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_grado" />
 
@@ -74,11 +77,11 @@
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editText_Escuela"
             android:layout_width="305dp"
-            android:autofillHints="@string/school_name_hint"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:autofillHints="@string/school_name_hint"
             android:ems="10"
             android:hint="@string/school_name_hint"
             android:inputType="text"
@@ -107,24 +110,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_Escuela" />
 
         <Button
             android:id="@+id/createbutton"
             android:layout_width="311dp"
             android:layout_height="46dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="18dp"
             android:background="@color/colorAccent"
             android:text="@string/create"
             android:textColor="@color/colorIcons"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_Escuela" />
 
     </android.support.constraint.ConstraintLayout>
     </ScrollView>

@@ -58,9 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
 
-                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-                    startActivity(intent);
-
                     signIn(Email, Password);
                 }
             }
@@ -72,9 +69,10 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if(task.isSuccessful()){
                     updateUI();
+                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     showMessage("No existe la cuenta ingresada.");
@@ -93,20 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
 
-        if(user != null) {
-            //user is already connected  so we need to redirect him to home page
-            updateUI();
-
-        }
-
-
-
-    }
     //this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)
     private void initCreateAccountTextView() {

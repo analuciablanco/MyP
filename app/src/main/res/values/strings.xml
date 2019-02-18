@@ -51,4 +51,7 @@
     <string name="next">Siguiente</string>
     <string name="share_explanation">Inserte el código que el maestro le compartió para poder ingresar al aula virtual.</string>
     <string name="insert_code">Intruduce el código</string>
+
+    <string name="title_classrooms">Configura tu aula</string>
+
 </resources>
