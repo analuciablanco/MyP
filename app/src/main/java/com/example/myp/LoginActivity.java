@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    // this method used to set Create account TextView text and click event( maltipal colors
+    // this method is used to set Create account TextView text and click event( multiple colors
     private void updateUI() {
         showMessage("Has iniciado sesion exitosamente.");
     }

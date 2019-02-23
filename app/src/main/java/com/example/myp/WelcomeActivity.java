@@ -4,34 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class WelcomeActivity extends AppCompatActivity {
-
-    Button buttonCreateClass;
-    Button buttonJoinClassroom;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_home);
 
-        LinearLayout joinclassroom = findViewById(R.id.JoinClassroom);
-        joinclassroom.setOnClickListener(new View.OnClickListener() {
+        LinearLayout joinClassroom = findViewById(R.id.joinClassroomButton);
+        joinClassroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent joinclassroom = new Intent(WelcomeActivity.this, JoinClassroomActivity.class);
-                startActivity(joinclassroom);
+                Intent joinClassroom = new Intent(WelcomeActivity.this, JoinClassroomActivity.class);
+                startActivity(joinClassroom);
             }
         });
 
-        LinearLayout createclassroom = (LinearLayout)findViewById(R.id.CreateClassroom);
-        createclassroom.setOnClickListener(new View.OnClickListener() {
+        LinearLayout createClassroom = (LinearLayout)findViewById(R.id.createClassroomButton);
+        createClassroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createclassroom = new Intent(WelcomeActivity.this, CreateClassroomActivity.class);
-                startActivity(createclassroom);
+                Intent createClassroom = new Intent(WelcomeActivity.this, CreateClassroomActivity.class);
+                startActivity(createClassroom);
             }
         });
     }

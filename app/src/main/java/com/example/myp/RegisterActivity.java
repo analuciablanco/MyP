@@ -1,13 +1,10 @@
 package com.example.myp;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -24,7 +21,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -289,7 +285,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextSecondLastName      = (EditText) findViewById(R.id.lastname2);
         editTextPhone               = (EditText) findViewById(R.id.phone);
 
-        spinnerGenero = (Spinner) findViewById(R.id.GeneroSpinner);
+        spinnerGenero = (Spinner) findViewById(R.id.GenderSpinner);
 
         //textInputLayout
         textInputLayoutEmail                    = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);

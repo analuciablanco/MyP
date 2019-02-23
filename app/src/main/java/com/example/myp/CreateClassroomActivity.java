@@ -25,40 +25,32 @@ public class CreateClassroomActivity extends AppCompatActivity {
                                 GROUP_KEY = "aula_grupo",
                           SCHOOL_NAME_KEY = "aula_escuelaNombre";
 
+    // Declaration of Views
+    Spinner GradeSpinner;       // Spinner
+    Spinner GroupSpinner;       // Spinner
+    EditText editText_School;   // EditText
+    Button create_button;        // Button
 
-    //Declaration Spinner
-    Spinner spinnerGrado;
-    Spinner spinnerGrupo;
-
-    //Declaration EditText
-    EditText editTextEscuela;
-
-
-
-    //Declaracion variable base de datos
+    // Declaracion variable base de datos
     private FirebaseFirestore aulaDB = FirebaseFirestore.getInstance();
-
-    //Declaracion Button Aula
-    Button createbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_classroom);
-            createbutton = findViewById(R.id.createbutton);
+            create_button = findViewById(R.id.create_button);
         initViews();
-    createbutton.setOnClickListener(new View.OnClickListener() {
+    create_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (attempRegistrationAulas()) {
-                    String grado = spinnerGrado.getSelectedItem().toString();
-                    String grupo = spinnerGrupo.getSelectedItem().toString();
-                    String nombreEscuela = editTextEscuela.getText().toString().trim();
+                    String grado = GradeSpinner.getSelectedItem().toString();
+                    String grupo = GroupSpinner.getSelectedItem().toString();
+                    String nombreEscuela = editText_School.getText().toString().trim();
 
                     insertarAula(grado, grupo, nombreEscuela);
                 }
-
             }
         });
     }
@@ -74,7 +66,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         showMessage("Registro de usuario exitoso.");
-                        Intent intent = new Intent(CreateClassroomActivity.this, ClassroomsActivity.class);
+                        Intent intent = new Intent(CreateClassroomActivity.this, ClassroomsListActivity.class);
                         startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -87,29 +79,27 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
 
     private boolean attempRegistrationAulas() {
-        boolean autenticacion = true;
+        boolean authentication = true;
 
-        String grado = spinnerGrado.getSelectedItem().toString();
-        String grupo = spinnerGrupo.getSelectedItem().toString();
-        String nombreEscuela = editTextEscuela.getText().toString().trim();
+        String grade = GradeSpinner.getSelectedItem().toString();
+        String group = GroupSpinner.getSelectedItem().toString();
+        String schoolName = editText_School.getText().toString().trim();
 
-        if ((TextUtils.isEmpty(grado) || TextUtils.isEmpty(grupo) || TextUtils.isEmpty(nombreEscuela))) {
+        if ((TextUtils.isEmpty(grade) || TextUtils.isEmpty(group) || TextUtils.isEmpty(schoolName))) {
             showMessage("Necesitas llenar todos los  campos para crear el aula.");
-            autenticacion = false;
+            authentication = false;
         }
 
-        return autenticacion;
+        return authentication;
     }
     private void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void initViews() {
-        spinnerGrado = (Spinner) findViewById(R.id.Grupo);
-        spinnerGrupo = (Spinner) findViewById(R.id.Grado);
-
-        editTextEscuela = (EditText) findViewById(R.id.editText_Escuela);
-
-        createbutton= (Button) findViewById(R.id.createbutton);
+        GroupSpinner = findViewById(R.id.GroupSpinner);
+        GradeSpinner = findViewById(R.id.GradeSpinner);
+        editText_School = findViewById(R.id.editText_School);
+        create_button = findViewById(R.id.create_button);
     }
 }

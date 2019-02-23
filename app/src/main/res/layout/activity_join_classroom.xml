@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btn_AceptarCodigo"
+            android:id="@+id/btn_Accept_Code"
             android:layout_width="331dp"
             android:layout_height="64dp"
             android:layout_marginTop="16dp"
@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tb_InsertarCodigo" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditTextInvite" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -66,7 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tb_InsertarCodigo"
+            android:id="@+id/textInputEditTextInvite"
             android:layout_width="314dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

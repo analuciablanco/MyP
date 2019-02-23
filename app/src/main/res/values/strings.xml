@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Teachers and Parents</string>
+    <string name="title_login">Login</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="title_add_classroom">Add Classroom</string>
+    <string name="title_join_classroom">Join Classroom</string>
 
     <string name="app_logo">MyPLogo</string>
 

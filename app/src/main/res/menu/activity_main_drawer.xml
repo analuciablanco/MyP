@@ -21,7 +21,7 @@
 
     <group android:id="@+id/separador1" android:checkableBehavior="single">
         <item
-            android:id="@+id/CreateClassroom"
+            android:id="@+id/createClassroomButton"
             android:icon="@drawable/maestro"
             android:title="@string/create_classroom"/>
         <item
