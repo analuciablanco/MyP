@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFF"
     android:fitsSystemWindows="true">
 
@@ -11,22 +12,12 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <LinearLayout
-            android:id="@+id/botonMaestros"
-            android:layout_width="wrap_content"
-            android:layout_height="253dp"
+            android:id="@+id/createClassroomButton"
+            android:layout_width="413dp"
+            android:layout_height="265dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
+            android:focusable="true"
             android:orientation="horizontal"
             android:padding="16dp"
             app:layout_constraintBottom_toTopOf="@+id/divider"
@@ -35,69 +26,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <ImageView
                 android:layout_width="174dp"
                 android:layout_height="154dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
                 android:maxWidth="30dp"
                 android:maxHeight="30dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/maestro" />
+                android:src="@drawable/maestro"
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/txtMaestros"
+                android:id="@+id/txtTeachers"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:paddingRight="30dp"
-                android:text="CREAR UN AULA"
+                android:paddingStart="0dp"
+                android:paddingEnd="30dp"
+                android:text="@string/create_classroom"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/botonPadre"
-            android:layout_width="wrap_content"
-            android:layout_height="263dp"
-            android:layout_marginBottom="8dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintVertical_bias="1.0">
-
-            <ImageView
-                android:layout_width="174dp"
-                android:layout_height="154dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:adjustViewBounds="true"
-                android:maxWidth="30dp"
-                android:maxHeight="30dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/padres" />
-
-            <TextView
-                android:id="@+id/txtPadres"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:paddingRight="30dp"
-                android:text="UNIRSE A UN AULA"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
         </LinearLayout>
 
         <View
@@ -109,7 +60,47 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/botonMaestros" />
+            app:layout_constraintTop_toBottomOf="@+id/createClassroomButton" />
 
+        <LinearLayout
+            android:id="@+id/joinClassroomButton"
+            android:layout_width="413dp"
+            android:layout_height="265dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider">
+
+            <ImageView
+                android:layout_width="174dp"
+                android:layout_height="154dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:adjustViewBounds="true"
+                android:maxWidth="30dp"
+                android:maxHeight="30dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/padres"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtParents"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:text="@string/join_classroom"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

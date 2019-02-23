@@ -15,7 +15,7 @@
 
         <!-- Logo -->
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/LogoimageView"
             android:layout_width="wrap_content"
             android:layout_height="180dp"
             android:layout_gravity="center_horizontal"
@@ -38,12 +38,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toBottomOf="@+id/LogoimageView">
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="427dp"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/prompt_email"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
@@ -87,11 +88,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword">
 
-
             <EditText
                 android:id="@+id/confirmpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/prompt2_password"
                 android:hint="@string/prompt2_password"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -201,7 +202,7 @@
 
             <!-- Gender Label -->
             <TextView
-                android:id="@+id/Genero"
+                android:id="@+id/Gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -214,7 +215,7 @@
 
             <!-- Gender Spinner -->
             <Spinner
-                android:id="@+id/GeneroSpinner"
+                android:id="@+id/GenderSpinner"
                 android:layout_width="140dp"
                 android:layout_height="28dp"
                 android:layout_gravity="end"
@@ -230,7 +231,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
-            android:background="@drawable/roundedbutton"
+            android:background="@drawable/round_button"
             android:backgroundTint="@color/colorAzulFuerte"
             android:text="@string/register"
             android:textColor="@android:color/white"

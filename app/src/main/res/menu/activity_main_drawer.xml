@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_mensajes"
+            android:icon="@android:drawable/ic_dialog_email"
+            android:title="@string/messages"/>
+        <item
+            android:id="@+id/nav_avisos"
+            android:icon="@drawable/megaphone"
+            android:title="@string/memos"/>
+        <item
+            android:id="@+id/nav_herramientasUsuario"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/user_tools"/>
+    </group>
+
+    <group android:id="@+id/separador1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/createClassroomButton"
+            android:icon="@drawable/maestro"
+            android:title="@string/create_classroom"/>
+        <item
+            android:id="@+id/botonPadre"
+            android:icon="@drawable/padres"
+            android:title="@string/join_classroom" />
+    </group>
+
+    <group android:id="@+id/separador2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_cerrarSesion"
+            android:icon="@drawable/logout"
+            android:title="@string/sign_out" />
+    </group>
+</menu>

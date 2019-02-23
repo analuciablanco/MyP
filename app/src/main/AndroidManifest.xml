@@ -28,7 +28,28 @@
 
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/app_name" />
+            android:label="@string/title_sign_up"
+            android:parentActivityName=".LoginActivity"/>
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".LoginActivity"/>
+
+        <activity
+            android:name=".CreateClassroomActivity"
+            android:label="@string/title_add_classroom"
+            android:parentActivityName=".WelcomeActivity"/>
+
+        <activity
+            android:name=".JoinClassroomActivity"
+            android:label="@string/title_join_classroom"
+            android:parentActivityName=".WelcomeActivity"/>
+
+        <activity
+            android:name=".ClassroomsListActivity"
+            android:label="@string/title_classrooms"
+            android:parentActivityName=".WelcomeActivity"/>
     </application>
 
 </manifest>
