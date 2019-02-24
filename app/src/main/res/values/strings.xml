@@ -58,4 +58,13 @@
 
     <string name="title_classrooms">Configura tu aula</string>
 
+
+    <!-- AQUI EMPIEZA EL CHAT -->
+    <string name="sharecode_header">CompartirCodigo</string>
+    <string name="sharecode_instruction">Este codigo se tendrá que compartir a los padres y maestros que integraran el grupo.</string>
+    <string name="sharecode_insertcode">Codigo</string>
+    <string name="sharecode_accept">ACEPTAR</string>
+
+    <!-- AQUI TERMINA EL CHAT -->
+
 </resources>
