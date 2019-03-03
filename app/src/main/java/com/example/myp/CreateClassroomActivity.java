@@ -22,8 +22,9 @@ import java.util.Map;
 public class CreateClassroomActivity extends AppCompatActivity {
 
     private static final String GRADE_KEY = "aula_grado",
-                                GROUP_KEY = "aula_grupo",
-                          SCHOOL_NAME_KEY = "aula_escuelaNombre";
+            GROUP_KEY = "aula_grupo",
+            SCHOOL_NAME_KEY = "aula_escuelaNombre",
+            STATUS_KEY = "aula_status";
 
     // Declaration of Views
     Spinner GradeSpinner;       // Spinner
@@ -38,9 +39,9 @@ public class CreateClassroomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_classroom);
-            create_button = findViewById(R.id.create_button);
+        create_button = findViewById(R.id.create_button);
         initViews();
-    create_button.setOnClickListener(new View.OnClickListener() {
+        create_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -49,17 +50,18 @@ public class CreateClassroomActivity extends AppCompatActivity {
                     String grupo = GroupSpinner.getSelectedItem().toString();
                     String nombreEscuela = editText_School.getText().toString().trim();
 
-                    insertarAula(grado, grupo, nombreEscuela);
+                    insertarAula(grado, grupo, nombreEscuela, 1);
                 }
             }
         });
     }
 
-    private void insertarAula(final String grado, final String grupo, final String nombreEscuela) {
+    private void insertarAula(final String grado, final String grupo, final String nombreEscuela, final int statusAula) {
         Map<String, Object> classroom = new HashMap<>();
         classroom.put(GRADE_KEY, grado);
         classroom.put(GROUP_KEY, grupo);
         classroom.put(SCHOOL_NAME_KEY, nombreEscuela);
+        classroom.put(STATUS_KEY, statusAula);
 
         aulaDB.collection("aula").document().set(classroom)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
