@@ -34,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 PASSWORD_KEY    = "usuario_Contrasena",
                                 FULLNAME_KEY    = "usuario_NombreCompleto",
                                 PHONE_KEY       = "usuario_Telefono",
-                                GENDER_KEY      = "usuario_Genero";
+                                GENDER_KEY      = "usuario_Genero",
+                                UID_KEY         = "usuario_UID";
 
     //Declaration EditTexts
     EditText    editTextUserName,
