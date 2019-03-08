@@ -108,9 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                              showMessage("Registro de usuario exitoso.");
-                              updateUserInfo(mAuth.getCurrentUser());
-
+                                updateUI();
                             }
                 }
             })
@@ -130,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put(PHONE_KEY, Phone);
         user.put(GENDER_KEY, Genero);
 
-        usuarioDB.collection("usuario").document().set(user)
+        usuarioDB.collection("usuario").document(/*mAuth.getInstance().getCurrentUser().getUid()*/).set(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -140,32 +138,16 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage("RFallo en el registro de usuario.");
+                        showMessage("Fallo en el registro de usuario.");
                     }
                 });
 
     }
 
-    private void updateUserInfo(FirebaseUser currentUser) {
-        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().build();
-        currentUser.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    showMessage("Registro completado.");
-                    updateUI();
-                }
-            }
-        });
-    }
-
     private void updateUI() {
-
         Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(loginActivity);
         finish();
-
-
     }
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
