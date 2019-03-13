@@ -3,6 +3,7 @@ package com.example.myp;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +12,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,9 +25,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -55,9 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
                     textInputLayoutSecondLastName,
                     textInputLayoutPhone;
 
-    //Declaracion de arrays (strings)
-    ArrayAdapter adapterGender;
-
     //Declaracion Spinner
     Spinner spinnerGenero;
 
@@ -82,73 +81,74 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+
                 //Check if user input is correct or not
                 if (attemptRegistration()) {
-                    String Email            = editTextEmail.getText().toString();
-                    String Password         = editTextPassword.getText().toString();
-                    String UserName         = editTextUserName.getText().toString();
-                    String FirstLastName    = editTextFirstLastName.getText().toString();
-                    String SecondLastName   = editTextSecondLastName.getText().toString();
-                    String Phone            = editTextPhone.getText().toString();
-                    String Genero           = spinnerGenero.getSelectedItem().toString();
+                    String Email = editTextEmail.getText().toString();
+                    String Password = editTextPassword.getText().toString();
+                    String UserName = editTextUserName.getText().toString();
+                    String FirstLastName = editTextFirstLastName.getText().toString();
+                    String SecondLastName = editTextSecondLastName.getText().toString();
+                    String Phone = editTextPhone.getText().toString();
+                    String Genero = spinnerGenero.getSelectedItem().toString();
 
-                    String FullName         = UserName + " " + FirstLastName + " " + SecondLastName;
+                    String FullName = UserName + " " + FirstLastName + " " + SecondLastName;
 
-                    crearAutenticacion(Email, Password);
-                    insertarUsuario(Email, Password, FullName, Phone, Genero);
+                    createUser(Email, Password, FullName, Phone, Genero);
+                    hideSoftKeyboard();
                     finish();
                 }
             }
         });
     }
 
-    public void crearAutenticacion(final String Email, final String Password){
-            mAuth.createUserWithEmailAndPassword(Email, Password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                updateUI();
-                            }
-                }
-            })
-                    .addOnFailureListener(this, new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                                showMessage("Fallo en el registro de usuario.");
-                        }
-                    });
-    }
-
-    public void insertarUsuario(final String Email, final String Password, final String UserFullName, final String Phone, final String Genero) {
-        Map<String, Object> user = new HashMap<>();
-        user.put(EMAIL_KEY, Email);
-        user.put(PASSWORD_KEY, Password);
-        user.put(FULLNAME_KEY, UserFullName);
-        user.put(PHONE_KEY, Phone);
-        user.put(GENDER_KEY, Genero);
-
-        usuarioDB.collection("usuario").document(/*mAuth.getInstance().getCurrentUser().getUid()*/).set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void createUser(final String Email, final String Password, final String UserFullName, final String Phone, final String Genero) {
+        mAuth.createUserWithEmailAndPassword(Email, Password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        showMessage("Registro de usuario exitoso.");
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            User user = new User();
+                            user.setEmail(Email);
+                            user.setPassword(Password);
+                            user.setUserFullName(UserFullName);
+                            user.setPhone(Phone);
+                            user.setGender(Genero);
+                            user.setUserID(mAuth.getUid());
+
+                            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                                    .setTimestampsInSnapshotsEnabled(true)
+                                    .build();
+                            usuarioDB.setFirestoreSettings(settings);
+
+                            DocumentReference newUserRef = usuarioDB
+                                    .collection(getString(R.string.collection_users))
+                                    .document(FirebaseAuth.getInstance().getUid());
+
+                            newUserRef.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            showMessage("Registro de usuario exitoso.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            showMessage("Fallo en el registro de usuario.");
+                                        }
+                                    });
+                        }
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         showMessage("Fallo en el registro de usuario.");
                     }
                 });
-
     }
 
-    private void updateUI() {
-        Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
-        startActivity(loginActivity);
-        finish();
-    }
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
@@ -260,26 +260,38 @@ public class RegisterActivity extends AppCompatActivity {
     // This method is used to connect XML views to its Objects
     private void initViews() {
         //editText
-        editTextEmail               = (EditText) findViewById(R.id.email);
-        editTextPassword            = (EditText) findViewById(R.id.password);
-        editTextUserName            = (EditText) findViewById(R.id.editTextUserName);
-        editTextConfirmPassword     = (EditText) findViewById(R.id.confirmpassword);
-        editTextFirstLastName       = (EditText) findViewById(R.id.lastname1);
-        editTextSecondLastName      = (EditText) findViewById(R.id.lastname2);
-        editTextPhone               = (EditText) findViewById(R.id.phone);
+        editTextEmail               = findViewById(R.id.email);
+        editTextPassword            = findViewById(R.id.password);
+        editTextUserName            = findViewById(R.id.editTextUserName);
+        editTextConfirmPassword     = findViewById(R.id.confirmpassword);
+        editTextFirstLastName       = findViewById(R.id.lastname1);
+        editTextSecondLastName      = findViewById(R.id.lastname2);
+        editTextPhone               = findViewById(R.id.phone);
 
         spinnerGenero = (Spinner) findViewById(R.id.GenderSpinner);
 
         //textInputLayout
-        textInputLayoutEmail                    = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
-        textInputLayoutPassword                 = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
-        textInputLayoutUserName                 = (TextInputLayout) findViewById(R.id.textInputLayoutUserName);
-        textInputLayoutPasswordConfirmation     = (TextInputLayout) findViewById(R.id.textInputLayoutPasswordConfirmation);
-        textInputLayoutFirstLastName            = (TextInputLayout) findViewById(R.id.textInputLayoutFirstLastName);
-        textInputLayoutSecondLastName           = (TextInputLayout) findViewById(R.id.textInputLayoutSecondLastName);
-        textInputLayoutPhone                    = (TextInputLayout) findViewById(R.id.textInputLayoutPhone);
+        textInputLayoutEmail                    = findViewById(R.id.textInputLayoutEmail);
+        textInputLayoutPassword                 = findViewById(R.id.textInputLayoutPassword);
+        textInputLayoutUserName                 = findViewById(R.id.textInputLayoutUserName);
+        textInputLayoutPasswordConfirmation     = findViewById(R.id.textInputLayoutPasswordConfirmation);
+        textInputLayoutFirstLastName            = findViewById(R.id.textInputLayoutFirstLastName);
+        textInputLayoutSecondLastName           = findViewById(R.id.textInputLayoutSecondLastName);
+        textInputLayoutPhone                    = findViewById(R.id.textInputLayoutPhone);
       
         //button
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        buttonRegister = findViewById(R.id.buttonRegister);
+    }
+
+    private void hideSoftKeyboard(){
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
     }
 }
