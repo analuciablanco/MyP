@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+// Login
 public class MainActivity extends AppCompatActivity {
     // EditTexts Declaration
     EditText editTextEmail;

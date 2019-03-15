@@ -14,23 +14,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.HashMap;
 import java.util.Map;
 
 // Clase para Crear Aulas
 public class CreateClassroomActivity extends AppCompatActivity {
-
-    // Database fields declaration
-    private static final String GRADE_KEY = "aula_grado",
-            GROUP_KEY = "aula_grupo",
-            SCHOOL_NAME_KEY = "aula_escuelaNombre",
-            STATUS_KEY = "aula_status";
 
     // Declaration of Views
     Spinner GradeSpinner;       // Spinner
@@ -77,7 +73,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
                     String school_name = editText_School.getText().toString().trim();
 
                     // Insertion of Classroom data to FireBase
-                    insertClassroom(grade, group, school_name, 1);
+                    String classroomStatus = "ACTIVO";
+                    insertClassroom(grade, group, school_name, classroomStatus);
                 }
             }
         });
@@ -91,19 +88,31 @@ public class CreateClassroomActivity extends AppCompatActivity {
     }
 
     // Classroom insertion to FireBase
-    private void insertClassroom(final String grado, final String grupo, final String nombreEscuela, final int statusAula) {
-        Map<String, Object> classroom = new HashMap<>();
-        classroom.put(GRADE_KEY, grado);
-        classroom.put(GROUP_KEY, grupo);
-        classroom.put(SCHOOL_NAME_KEY, nombreEscuela);
-        classroom.put(STATUS_KEY, statusAula);
+    private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus) {
+        final ClassRoom classRoom = new ClassRoom();
+        classRoom.setGrade(grade);
+        classRoom.setGroup(group);
+        classRoom.setSchool_name(school_name);
+        classRoom.setStatus(classroomStatus);
 
-        aulaDB.collection("aula").document().set(classroom)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        aulaDB.setFirestoreSettings(settings);
+
+        final DocumentReference newUserRef = aulaDB
+                .collection(getString(R.string.collection_classrooms))
+                .document();
+        classRoom.setID(newUserRef.getId());
+
+        newUserRef.set(classRoom).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // Classroom created. Print success message
                         showMessage("Creación de aula exitosa.");
+
+                        String admin = "admin";
+                        insertMemberAdmin(classRoom.getID(), admin, newUserRef);
 
                         // Navigate to your invitation code and close this screen.
                         Intent intent = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
@@ -137,6 +146,30 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
         // If everything is correction, authentication will be true and program continues.
         return authentication;
+    }
+
+    private void insertMemberAdmin(final String IdDocument, final String adminRole, DocumentReference newUserRef) {
+        ClassRoomMember classRoomMember = new ClassRoomMember();
+        classRoomMember.setUser_id(FirebaseAuth.getInstance().getUid());
+        classRoomMember.setRole(adminRole);
+
+        final DocumentReference newMemberRef = newUserRef
+                .collection(getString(R.string.collection_classrom_members)).document();
+
+        classRoomMember.setMember_id(newMemberRef.getId());
+
+        newMemberRef.set(classRoomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Intent intent = new Intent(CreateClassroomActivity.this, ClassroomsListActivity.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                showMessage("Fallo en el registro del aula.");
+            }
+        });
     }
 
     // This function is used to easily set Toast print messages

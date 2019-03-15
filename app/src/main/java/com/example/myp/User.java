@@ -3,7 +3,7 @@ package com.example.myp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-// Clase para crear un usuario en FireBase FireStore
+// FireBase Class to register new users in the DataBase
 public class User implements Parcelable {
     private String email;
     private String password;

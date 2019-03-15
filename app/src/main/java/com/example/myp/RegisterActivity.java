@@ -29,14 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 // NOTA: Falta agregar un gif para la espera del proceso de autenticación
 public class RegisterActivity extends AppCompatActivity {
 
-    // FireBase KEYS' Initialization
-    private static final String EMAIL_KEY       = "usuario_Correo",
-                                PASSWORD_KEY    = "usuario_Contrasena",
-                                FULLNAME_KEY    = "usuario_NombreCompleto",
-                                PHONE_KEY       = "usuario_Telefono",
-                                GENDER_KEY      = "usuario_Genero",
-                                UID_KEY         = "usuario_UID";
-
     // EditTexts Declaration
     EditText    editTextUserName,
                 editTextEmail,

@@ -59,20 +59,19 @@
     <string name="title_classrooms">Configure your classroom</string>
 
 
-    <!-- AQUI EMPIEZA EL CHAT -->
+    <!-- CHAT -->
     <string name="sharecode_header">Share Code</string>
     <string name="sharecode_instruction">This code should be shared with teachers you wish to invite to the group.</string>
     <string name="sharecode_insertcode">Code</string>
     <string name="sharecode_to_classrooms">Continue to Classrooms</string>
 
-    <!-- AQUI TERMINA EL CHAT -->
-
-    <!-- Firestore Strings -->
+    <!-- FireStore Strings -->
     <string name="collection_users">Users</string>
     <string name="collection_classrooms">Classrooms</string>
     <string name="collection_chatrooms">Chatrooms</string>
     <string name="collection_chat_messages">Chat Messages</string>
     <string name="collection_chatroom_user_list">User List</string>
+    <string name="collection_classrom_members">Classrooms Members</string>
 
     <string name="back_classroom">Return to Classrooms\' list</string>
 
