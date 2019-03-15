@@ -1,10 +1,6 @@
 package com.example.myp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,9 +25,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
+// Actividad para registrarse como usuario
+// NOTA: Falta agregar un gif para la espera del proceso de autenticación
 public class RegisterActivity extends AppCompatActivity {
 
-    //Declaracion KEYS
+    // FireBase KEYS' Initialization
     private static final String EMAIL_KEY       = "usuario_Correo",
                                 PASSWORD_KEY    = "usuario_Contrasena",
                                 FULLNAME_KEY    = "usuario_NombreCompleto",
@@ -39,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 GENDER_KEY      = "usuario_Genero",
                                 UID_KEY         = "usuario_UID";
 
-    //Declaration EditTexts
+    // EditTexts Declaration
     EditText    editTextUserName,
                 editTextEmail,
                 editTextPassword,
@@ -48,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                 editTextSecondLastName,
                 editTextPhone;
 
-    //Declaration TextInputLayout
+    // TextInputLayout Declaration
     TextInputLayout textInputLayoutUserName,
                     textInputLayoutEmail,
                     textInputLayoutPassword,
@@ -57,16 +55,16 @@ public class RegisterActivity extends AppCompatActivity {
                     textInputLayoutSecondLastName,
                     textInputLayoutPhone;
 
-    //Declaracion Spinner
+    // Spinner Declaration
     Spinner spinnerGenero;
 
     //Declaration Button
     Button buttonRegister;
 
-    //Declaracion variable autenticacion
+    // FireBase Authentication variable initialized
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    //Declaracion variable base de datos
+    // FireBase Instance Variable Declaration
     private FirebaseFirestore usuarioDB = FirebaseFirestore.getInstance();
 
     @Override
@@ -74,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Link variables to their XML elements
         initTextViewLogin();
         initViews();
 
@@ -81,9 +80,11 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideSoftKeyboard();
 
-                //Check if user input is correct or not
+                // Disable the button to avoid multiple registration attempts
+                buttonRegister.setClickable(false);
+
+                // Check if user input is correct or not
                 if (attemptRegistration()) {
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
@@ -91,18 +92,22 @@ public class RegisterActivity extends AppCompatActivity {
                     String FirstLastName = editTextFirstLastName.getText().toString();
                     String SecondLastName = editTextSecondLastName.getText().toString();
                     String Phone = editTextPhone.getText().toString();
-                    String Genero = spinnerGenero.getSelectedItem().toString();
+                    String Gender = spinnerGenero.getSelectedItem().toString();
 
                     String FullName = UserName + " " + FirstLastName + " " + SecondLastName;
 
-                    createUser(Email, Password, FullName, Phone, Genero);
-                    hideSoftKeyboard();
-                    finish();
+                    // Function to create the user in FireBase FireStore and exit layout
+                    createUser(Email, Password, FullName, Phone, Gender);
+                }
+                else {
+                    // Enable the button to try registration again
+                    buttonRegister.setClickable(true);
                 }
             }
         });
     }
 
+    // Function to create user account in FireStore FireBase
     public void createUser(final String Email, final String Password, final String UserFullName, final String Phone, final String Genero) {
         mAuth.createUserWithEmailAndPassword(Email, Password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -130,12 +135,16 @@ public class RegisterActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             showMessage("Registro de usuario exitoso.");
+                                            finish();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             showMessage("Fallo en el registro de usuario.");
+
+                                            // The button is enabled to try registration again
+                                            buttonRegister.setClickable(true);
                                         }
                                     });
                         }
@@ -145,29 +154,35 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         showMessage("Fallo en el registro de usuario.");
+
+                        // The button is enabled to try registration again
+                        buttonRegister.setClickable(true);
                     }
                 });
     }
 
+    // Function to set Toast messages more easily
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
+
+    // Function to validate (through front end) the registration's fields
     public boolean attemptRegistration() {
-        // Validación de variables
-        boolean autenticacion = false;
+        // Variable to validate/cancel this function
+        boolean authentication = false;
 
         // Store values at the time of the registration attempt.
         String email            = editTextEmail.getText().toString();
         String password         = editTextPassword.getText().toString();
-        String passwordconfirm  = editTextConfirmPassword.getText().toString();
+        String password_confirm  = editTextConfirmPassword.getText().toString();
         String name             = editTextUserName.getText().toString();
-        String firstlastname    = editTextFirstLastName.getText().toString();
+        String first_last_name    = editTextFirstLastName.getText().toString();
         String phone            = editTextPhone.getText().toString();
 
-        // Validación de los campos requeridos (si cancel es true es porque un campo está vacío)
+        // Variable to validate every field (if cancel is true, it means a field is empty)
         boolean cancel = false;
 
-        // Redirige al campo donde focusView sea diferente de null
+        // This sends your screen to the first empty field from the top.
         View focusView = null;
 
         // Require phone.
@@ -178,7 +193,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else editTextPhone.setError(null);
 
         // Require First Last Name.
-        if (TextUtils.isEmpty(firstlastname)){
+        if (TextUtils.isEmpty(first_last_name)){
             editTextFirstLastName.setError(getString(R.string.error_field_required));
             focusView = editTextFirstLastName;
             cancel = true;
@@ -203,7 +218,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else editTextPassword.setError(null);
 
         // Confirm password match
-        if(!PasswordConfirmation(password, passwordconfirm)){
+        if(!PasswordConfirmation(password, password_confirm)){
             editTextConfirmPassword.setError(getString(R.string.error_invalid_password_confirmation));
             focusView = editTextConfirmPassword;
             cancel = true;
@@ -220,33 +235,42 @@ public class RegisterActivity extends AppCompatActivity {
             cancel = true;
         } else editTextEmail.setError(null);
 
-
+        // Check if every field was correctly filled
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // There was an error; login won't be attempted and you'll be redirected
+            // to the first form incorrectly filled.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            autenticacion = true;
+            // Since focusView = null redirects to wherever your view is currently
+            // focused, we make focusView = editTextPhone since it's close to the button.
+            focusView = editTextPhone;
+            focusView.requestFocus();
+
+            // Hide KeyBoard
+            hideSoftKeyboard();
+
+            // Every form was correctly filled and the front-end authentication is finished.
+            authentication = true;
         }
-
-        return autenticacion;
+        return authentication;
     }
 
+    // Front end authentication if email has an @ and a .
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        return (email.contains("@") && email.contains("."));
     }
 
+    // Front end authentication for 8 character passwords
     private boolean isPasswordValid(String password) {
         return (password.length() > 7);
     }
 
+    // Front end validation for correct password confirmation
     private boolean PasswordConfirmation(String password, String passwordconfirm) {
         return (password.equals(passwordconfirm));
     }
 
-    // This method used to set Login TextView click event
+    // This method used to set the Login TextView click event
     private void initTextViewLogin() {
         TextView textViewLogin = findViewById(R.id.textViewLogin);
         textViewLogin.setOnClickListener(new View.OnClickListener() {
@@ -257,9 +281,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // This method is used to connect XML views to its Objects
+    // This method is used to connect XML views to their Objects
     private void initViews() {
-        //editText
+        // EditText
         editTextEmail               = findViewById(R.id.email);
         editTextPassword            = findViewById(R.id.password);
         editTextUserName            = findViewById(R.id.editTextUserName);
@@ -268,9 +292,9 @@ public class RegisterActivity extends AppCompatActivity {
         editTextSecondLastName      = findViewById(R.id.lastname2);
         editTextPhone               = findViewById(R.id.phone);
 
-        spinnerGenero = (Spinner) findViewById(R.id.GenderSpinner);
+        spinnerGenero = findViewById(R.id.GenderSpinner);
 
-        //textInputLayout
+        // TextInputLayout
         textInputLayoutEmail                    = findViewById(R.id.textInputLayoutEmail);
         textInputLayoutPassword                 = findViewById(R.id.textInputLayoutPassword);
         textInputLayoutUserName                 = findViewById(R.id.textInputLayoutUserName);
@@ -279,10 +303,11 @@ public class RegisterActivity extends AppCompatActivity {
         textInputLayoutSecondLastName           = findViewById(R.id.textInputLayoutSecondLastName);
         textInputLayoutPhone                    = findViewById(R.id.textInputLayoutPhone);
       
-        //button
+        // Button
         buttonRegister = findViewById(R.id.buttonRegister);
     }
 
+    // Function to (supposedly) hide the keyboard upon use.
     private void hideSoftKeyboard(){
         // Check if no view has focus:
         View view = this.getCurrentFocus();
