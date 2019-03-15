@@ -73,5 +73,6 @@
     <string name="collection_chatrooms">Chatrooms</string>
     <string name="collection_chat_messages">Chat Messages</string>
     <string name="collection_chatroom_user_list">User List</string>
+    <string name="collection_classrom_members">Classrooms Members</string>
 
 </resources>
