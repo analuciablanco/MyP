@@ -30,49 +30,55 @@
     <string name="error_field_required">This field is required</string>
     <string name="no_account">No account? Register</string>
 
-    <string name="home_name">Elige tu tipo de usuario</string>
+    <string name="home_name">Choose what kind of user you\'ll be</string>
 
 
     <!-- FALTA TRADUCIR EL STRING-ARRAY! -->
 
-    <string name="grade">Grado:</string>>
-    <string name="group">Grupo:</string>>
-    <string name="school">Escuela:</string>>
-    <string name="school_name_hint">Nombre de la escuela</string>>
-    <string name="create">CREAR</string>
+    <string name="grade">Grade:</string>>
+    <string name="group">Group:</string>>
+    <string name="school">School:</string>>
+    <string name="school_name_hint">School name</string>>
+    <string name="create">CREATE</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Nombre de Maestros</string>
-    <string name="nav_header_subtitle">Tipo de usuario</string>
+    <string name="nav_header_title">Teacher\'s name</string>
+    <string name="nav_header_subtitle">User type</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Opciones</string>
-    <string name="messages">Mensajes</string>
-    <string name="memos">Avisos escolares</string>
-    <string name="user_tools">Herramientas del usuario</string>
-    <string name="create_classroom">Crear un aula</string>
-    <string name="join_classroom">Unirse a un aula</string>
-    <string name="sign_out">Cerrar sesión</string>
-    <string name="next">Siguiente</string>
-    <string name="share_explanation">Inserte el código que el maestro le compartió para poder ingresar al aula virtual.</string>
-    <string name="insert_code">Intruduce el código</string>
+    <string name="action_settings">Options</string>
+    <string name="messages">Messages</string>
+    <string name="memos">School Reports</string>
+    <string name="user_tools">User Tools</string>
+    <string name="create_classroom">Create classroom</string>
+    <string name="join_classroom">Join the classroom</string>
+    <string name="sign_out">Sign out</string>
+    <string name="next">Next</string>
+    <string name="share_explanation">Insert the code which was shared by the teacher to join the classroom.</string>
+    <string name="insert_code">Insert invitation code</string>
 
-    <string name="title_classrooms">Configura tu aula</string>
+    <string name="title_classrooms">Configure your classroom</string>
 
 
-    <!-- AQUI EMPIEZA EL CHAT -->
-    <string name="sharecode_header">CompartirCodigo</string>
-    <string name="sharecode_instruction">Este codigo se tendrá que compartir a los padres y maestros que integraran el grupo.</string>
-    <string name="sharecode_insertcode">Codigo</string>
-    <string name="sharecode_accept">ACEPTAR</string>
+    <!-- CHAT -->
+    <string name="sharecode_header">Share Code</string>
+    <string name="sharecode_instruction">This code should be shared with teachers you wish to invite to the group.</string>
+    <string name="sharecode_insertcode">Code</string>
+    <string name="sharecode_to_classrooms">Continue to Classrooms</string>
 
-    <!-- AQUI TERMINA EL CHAT -->
-
-    <!-- Firestore Strings -->
+    <!-- FireStore Strings -->
     <string name="collection_users">Users</string>
     <string name="collection_classrooms">Classrooms</string>
     <string name="collection_chatrooms">Chatrooms</string>
     <string name="collection_chat_messages">Chat Messages</string>
     <string name="collection_chatroom_user_list">User List</string>
     <string name="collection_classrom_members">Classrooms Members</string>
+
+    <string name="back_classroom">Return to Classrooms\' list</string>
+
+    <!--CHAT-->
+    <string name="title_chat">Chat</string>
+    <string name="txt_mensaje">Write a message</string>
+    <string name="chatbox"></string>
+    <string name="btn_enviar">Send</string>
 
 </resources>

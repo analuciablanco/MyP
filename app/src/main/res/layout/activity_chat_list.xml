@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/btn_first_classroom"
+            android:id="@+id/firstchat_layout"
             android:layout_width="0dp"
             android:layout_height="144dp"
             android:background="?android:attr/selectableItemBackground"
@@ -24,8 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread_inside">
+            app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile1"
@@ -43,7 +42,7 @@
                 android:gravity="center"
                 android:paddingStart="0dp"
                 android:paddingEnd="30dp"
-                android:text="Aula 2B / 2 Grado / La Salle"
+                android:text="Marta Rodriguez"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -57,11 +56,12 @@
             android:layout_marginEnd="8dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_first_classroom" />
+            app:layout_constraintTop_toBottomOf="@+id/firstchat_layout" />
 
         <LinearLayout
-            android:id="@+id/btn_second_classroom"
+            android:id="@+id/secondchat_layout"
             android:layout_width="0dp"
             android:layout_height="134dp"
             android:layout_marginBottom="8dp"
@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -92,7 +92,7 @@
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="0dp"
-                android:text="Aula 1C / 1 Grado / La Salle"
+                android:text="Pedro Picapiedra"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />

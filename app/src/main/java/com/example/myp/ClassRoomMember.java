@@ -3,6 +3,7 @@ package com.example.myp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// FireBase Class to add Parents and Teachers to a ClassRoom
 public class ClassRoomMember implements Parcelable{
 
     private String member_id;

@@ -3,6 +3,7 @@ package com.example.myp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// FireBase Class to Create ClassRooms
 public class ClassRoom implements Parcelable {
     private String ID;
     private String grade;
@@ -28,6 +29,7 @@ public class ClassRoom implements Parcelable {
         status = in.readString();
 
     }
+
     public static final Creator<ClassRoom> CREATOR = new Creator<ClassRoom>() {
         @Override
         public ClassRoom createFromParcel(Parcel in) {
@@ -101,4 +103,3 @@ public class ClassRoom implements Parcelable {
         dest.writeString(school_name);
         dest.writeString(status);
     }
-}
