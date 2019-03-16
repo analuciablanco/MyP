@@ -93,6 +93,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);
+        classRoom.setCodeTeacher();
+        classRoom.setCodeParent();
         classRoom.setStatus(classroomStatus);
 
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()

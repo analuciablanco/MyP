@@ -2,6 +2,9 @@ package com.example.myp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+
 
 // FireBase Class to Create ClassRooms
 public class ClassRoom implements Parcelable {
@@ -9,25 +12,32 @@ public class ClassRoom implements Parcelable {
     private String grade;
     private String group;
     private String school_name;
+    private String code_teacher;
+    private String code_parent;
     private String status;
 
-    public ClassRoom(String ID,String grade, String group, String school_name, String status){
+    public ClassRoom(String ID,String grade, String group, String school_name, String status, String code_teacher, String code_parent){
         this.ID = ID;
         this.grade = grade;
         this.group = group;
         this.school_name = school_name;
+        this.code_teacher = code_teacher;
+        this.code_parent = code_parent;
         this.status = status;
     }
+
     public ClassRoom(){
 
     }
+
     protected ClassRoom(Parcel in){
         ID = in.readString();
         grade = in.readString();
         group = in.readString();
         school_name = in.readString();
+        code_teacher = in.readString();
+        code_parent = in.readString();
         status = in.readString();
-
     }
 
     public static final Creator<ClassRoom> CREATOR = new Creator<ClassRoom>() {
@@ -66,6 +76,12 @@ public class ClassRoom implements Parcelable {
     public String getID() { return ID; }
     public void setID(String ID) { this.ID = ID; }
 
+    public String getCodeTeacher() { return code_teacher; }
+    public void setCodeTeacher() { this.code_teacher = RandomStringUtils.random(6, true, true); }
+
+    public String getCodeParent() { return code_parent; }
+    public void setCodeParent() { this.code_parent = RandomStringUtils.random(6, true, true); }
+
     public void setStatus(String status){
         this.status = status;
     }
@@ -80,6 +96,8 @@ public class ClassRoom implements Parcelable {
                 ",grade='" + grade + '\'' +
                 ", group='" + group + '\'' +
                 ", school_name='" + school_name  + '\'' +
+                ", code_teacher='" + code_teacher + '\'' +
+                ", code_parent='" + code_parent + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
@@ -94,6 +112,8 @@ public class ClassRoom implements Parcelable {
         dest.writeString(grade);
         dest.writeString(group);
         dest.writeString(school_name);
+        dest.writeString(code_teacher);
+        dest.writeString(code_parent);
         dest.writeString(status);
     }
 }
