@@ -84,4 +84,9 @@
     <string name="btn_enviar">Send</string>
 
     <string name="toast_clipboard">Copied to clipboard</string>
+
+    <string name="classrooms_list_delete">Delete classroom</string>
+    <string name="chat_list_delete">Delete chat</string>
+
+    <string name="classrooms_info">Show Classroom\'s codes</string>
 </resources>

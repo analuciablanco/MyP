@@ -2,9 +2,16 @@ package com.example.myp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ActionMenuView;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 // Clase de los chats de cada salón
 public class ChatListActivity extends AppCompatActivity {
@@ -32,5 +39,27 @@ public class ChatListActivity extends AppCompatActivity {
                 startActivity(chatList2);
             }
         });
+
+
     }
+
+    // This class adds the button delete
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_chatlist, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_show_code) {
+            Toast.makeText(this, "Show code", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ShareCodeActivity.class));
+        }
+        return false;
+    }
+
 }
