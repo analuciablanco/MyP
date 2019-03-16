@@ -61,7 +61,9 @@
 
     <!-- CHAT -->
     <string name="sharecode_header">Share Code</string>
-    <string name="sharecode_instruction">This code should be shared with teachers you wish to invite to the group.</string>
+    <string name="sharecode_parents">Parents\' code:</string>
+    <string name="sharecode_teacher">Teachers\' code:</string>
+
     <string name="sharecode_insertcode">Code</string>
     <string name="sharecode_to_classrooms">Continue to Classrooms</string>
 
@@ -81,4 +83,5 @@
     <string name="chatbox"></string>
     <string name="btn_enviar">Send</string>
 
+    <string name="toast_clipboard">Copied to clipboard</string>
 </resources>

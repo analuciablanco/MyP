@@ -13,89 +13,144 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_height="203dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+        <ImageButton
+            android:id="@+id/sharecode_imagebutton_copy_parents"
+            android:layout_width="48dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="false"
+            android:background="@null"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="@+id/sharecode_textview_insertcode_parents"
+            app:layout_constraintEnd_toStartOf="@+id/sharecode_textview_insertcode_parents"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo" />
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_parents"
+            app:srcCompat="@drawable/copy" />
 
         <TextView
-            android:id="@+id/sharecode_textview_instruction"
-            android:layout_width="348dp"
-            android:layout_height="95dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/sharecode_instruction"
+            android:id="@+id/sharecode_textview_parents"
+            android:layout_width="0dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/sharecode_parents"
             android:textAlignment="center"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/sharecode_textview_insertcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:id="@+id/sharecode_textview_insertcode_parents"
+            android:layout_width="110dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
             android:text="@string/sharecode_insertcode"
-            android:textColor="@color/colorPrimaryText"
+            android:textAlignment="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_instruction" />
-
-        <ImageButton
-            android:id="@+id/sharecode_imageButton_share"
-            android:layout_width="56dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="75dp"
-            android:background="@null"
-            android:scaleType="centerInside"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode"
-            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_instruction"
-            app:srcCompat="@drawable/ic_menu_share" />
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_parents" />
 
         <Button
             android:id="@+id/button_to_classrooms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="52dp"
             android:layout_marginEnd="70dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/colorAccent"
             android:text="@string/sharecode_to_classrooms"
             android:textColor="@color/colorIcons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_insertcode_teachers" />
+
+        <TextView
+            android:id="@+id/sharecode_textview_teachers"
+            android:layout_width="0dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="52dp"
+            android:text="@string/sharecode_teacher"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_insertcode" />
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_insertcode_parents" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="51dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="75dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="16dp"
+            android:id="@+id/sharecode_imagebutton_copy_teachers"
+            android:layout_width="48dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="false"
             android:background="@null"
             android:scaleType="centerInside"
-            app:layout_constraintEnd_toStartOf="@+id/sharecode_textview_insertcode"
+            app:layout_constraintBottom_toBottomOf="@+id/sharecode_textview_insertcode_teachers"
+            app:layout_constraintEnd_toStartOf="@+id/sharecode_textview_insertcode_teachers"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_instruction"
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_teachers"
             app:srcCompat="@drawable/copy" />
+
+        <TextView
+            android:id="@+id/sharecode_textview_insertcode_teachers"
+            android:layout_width="110dp"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="@string/sharecode_insertcode"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_teachers" />
+
+        <ImageButton
+            android:id="@+id/sharecode_imagebutton_share_parents"
+            android:layout_width="48dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="@+id/sharecode_textview_insertcode_parents"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode_parents"
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_parents"
+            app:srcCompat="@drawable/share" />
+
+        <ImageButton
+            android:id="@+id/sharecode_imagebutton_share_teachers"
+            android:layout_width="48dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="@+id/sharecode_textview_insertcode_teachers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode_teachers"
+            app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_teachers"
+            app:srcCompat="@drawable/share" />
 
 
     </android.support.constraint.ConstraintLayout>
