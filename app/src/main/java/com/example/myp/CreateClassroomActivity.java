@@ -116,10 +116,6 @@ public class CreateClassroomActivity extends AppCompatActivity {
                         String admin = "admin";
                         insertMemberAdmin(classRoom.getID(), admin, newUserRef);
 
-                        // Navigate to your invitation code and close this screen.
-                        Intent intent = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -163,8 +159,10 @@ public class CreateClassroomActivity extends AppCompatActivity {
         newMemberRef.set(classRoomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(CreateClassroomActivity.this, ClassroomsListActivity.class);
+                // Navigate to your invitation code and close this screen.
+                Intent intent = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
                 startActivity(intent);
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
