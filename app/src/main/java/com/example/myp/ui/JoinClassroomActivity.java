@@ -1,4 +1,4 @@
-package com.example.myp;
+package com.example.myp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.myp.R;
 
 // Clase para unirte a Salones
 public class JoinClassroomActivity extends AppCompatActivity {

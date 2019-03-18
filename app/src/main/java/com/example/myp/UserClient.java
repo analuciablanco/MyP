@@ -2,6 +2,8 @@ package com.example.myp;
 
 import android.app.Application;
 
+import com.example.myp.FireBase.models.User;
+
 public class UserClient extends Application {
 
     private User user = null;

@@ -1,17 +1,15 @@
-package com.example.myp;
+package com.example.myp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ActionMenuView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.example.myp.R;
 
 // Clase de los chats de cada salón
 public class ChatListActivity extends AppCompatActivity {

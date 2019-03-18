@@ -132,14 +132,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUserName">
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/lastname1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_first_last_name"
-                android:inputType="textCapSentences"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:inputType="textCapSentences"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -155,14 +153,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFirstLastName">
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/lastname2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_second_last_name"
-                android:inputType="textCapSentences"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:inputType="textCapSentences"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -178,14 +174,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSecondLastName">
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_phone"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:inputType="phone"/>
 
         </android.support.design.widget.TextInputLayout>
 

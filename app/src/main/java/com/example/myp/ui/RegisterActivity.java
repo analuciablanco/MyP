@@ -1,4 +1,4 @@
-package com.example.myp;
+package com.example.myp.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myp.R;
+import com.example.myp.FireBase.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -233,7 +235,7 @@ public class RegisterActivity extends AppCompatActivity {
             // to the first form incorrectly filled.
             focusView.requestFocus();
         } else {
-            // Since focusView = null redirects to wherever your view is currently
+            // Since "focusView = null" redirects to wherever your view is currently
             // focused, we make focusView = editTextPhone since it's close to the button.
             focusView = editTextPhone;
             focusView.requestFocus();
