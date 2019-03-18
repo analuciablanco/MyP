@@ -77,10 +77,12 @@ public class ClassRoom implements Parcelable {
     public void setID(String ID) { this.ID = ID; }
 
     public String getCodeTeacher() { return code_teacher; }
-    public void setCodeTeacher() { this.code_teacher = RandomStringUtils.random(6, true, true); }
+    public void setCodeTeacher(String code_teacher) {
+        this.code_teacher = code_teacher;}
 
     public String getCodeParent() { return code_parent; }
-    public void setCodeParent() { this.code_parent = RandomStringUtils.random(6, true, true); }
+    public void setCodeParent(String code_parent) {
+        this.code_parent = code_parent;}
 
     public void setStatus(String status){
         this.status = status;

@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,8 +95,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);
-        classRoom.setCodeTeacher();
-        classRoom.setCodeParent();
+        classRoom.setCodeTeacher(RandomStringUtils.random(6, true, true));
+        classRoom.setCodeParent(RandomStringUtils.random(6, true, true));
         classRoom.setStatus(classroomStatus);
 
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -111,7 +113,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // Classroom created. Print success message
-                        showMessage("Creación de aula exitosa.");
+                        //showMessage("Creación de aula exitosa.");
 
                         String admin = "admin";
                         insertMemberAdmin(classRoom.getID(), admin, newUserRef);
