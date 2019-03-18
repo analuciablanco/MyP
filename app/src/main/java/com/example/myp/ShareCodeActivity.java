@@ -22,8 +22,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
+
+import javax.annotation.Nullable;
 
 //Class to share the code
 public class ShareCodeActivity extends AppCompatActivity {
@@ -42,12 +47,20 @@ public class ShareCodeActivity extends AppCompatActivity {
                 sharecode_imagebutton_share_teachers;
 
     private FirebaseFirestore dbFireStore = FirebaseFirestore.getInstance();
-    //DocumentReference shareCodeRef = dbFireStore.collection(getString(R.string.collection_classrooms)).document("rbUUCfyNTKEVTS93hWF1");
+
+    DocumentReference shareCodeRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sharecode);
+
+        Intent intent = getIntent();
+        String classroom_document_ID = intent.getStringExtra("classroom_document_ID");
+
+        shareCodeRef = dbFireStore
+                .collection(getString(R.string.collection_classrooms))
+                .document(classroom_document_ID);
 
         // Link class TextView variables with layout TextView id
         sharecode_textview_parents = findViewById(R.id.sharecode_textview_insertcode_parents);
@@ -64,8 +77,8 @@ public class ShareCodeActivity extends AppCompatActivity {
         code_Teachers = sharecode_textview_teachers.getText().toString();
 
         // Function to DISPLAY codes on their TextView
-        displayShareCodes(code_Parents, code_Teachers);
-        // Funtion to COPY codes on clipboard
+        displayShareCodes();
+        // Function to COPY codes on clipboard
         copyCodes();
         // Function to SHARE codes
         shareCodes();
@@ -83,18 +96,30 @@ public class ShareCodeActivity extends AppCompatActivity {
         });
     }
 
-    private void displayShareCodes(final String code_parent, final String code_teacher) {
-        //ClassRoom classroom = new ClassRoom();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        shareCodeRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if(e != null)
+                {
+                    return;
+                }
 
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setTimestampsInSnapshotsEnabled(true)
-                .build();
-        dbFireStore.setFirestoreSettings(settings);
+                if(documentSnapshot.exists())
+                {
+                    String codeParent = documentSnapshot.getString("codeParent");
+                    sharecode_textview_parents.setText(codeParent);
 
-        final DocumentReference shareCodeRef = dbFireStore
-                .collection(getString(R.string.collection_classrooms))
-                .document("1BNU7iyiOmyDBVdS9qBE");
+                    String codeTeacher = documentSnapshot.getString("codeTeacher");
+                    sharecode_textview_teachers.setText(codeTeacher);
+                }
+            }
+        });
+    }
 
+    private void displayShareCodes() {
         shareCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -103,9 +128,16 @@ public class ShareCodeActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if(documentSnapshot.exists())
                         {
-                            //showMessage("Si existe y si entró uff");
-                            String codeParent = documentSnapshot.getString("code_parent");
+                            showMessage("Si existe y si entró uff");
+                            String codeParent = documentSnapshot.getString("codeParent");
                             sharecode_textview_parents.setText(codeParent);
+
+                            String codeTeacher = documentSnapshot.getString("codeTeacher");
+                            sharecode_textview_teachers.setText(codeTeacher);
+                        }
+                        else
+                        {
+                            showMessage("Nel, no funciona");
                         }
                     }
                 })

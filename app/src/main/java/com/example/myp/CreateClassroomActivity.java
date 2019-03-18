@@ -36,6 +36,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
     EditText editText_School;   // EditText
     Button create_button;       // Button
 
+    ClassRoom classRoom = new ClassRoom();
+
     // Database variable Declaration
     private FirebaseFirestore aulaDB = FirebaseFirestore.getInstance();
 
@@ -91,7 +93,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
     // Classroom insertion to FireBase
     private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus) {
-        final ClassRoom classRoom = new ClassRoom();
+        //final ClassRoom classRoom = new ClassRoom();
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);
@@ -162,7 +164,9 @@ public class CreateClassroomActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 // Navigate to your invitation code and close this screen.
+
                 Intent intent = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
+                intent.putExtra("classroom_document_ID", classRoom.getID());
                 startActivity(intent);
                 finish();
             }

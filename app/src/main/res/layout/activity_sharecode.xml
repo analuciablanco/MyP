@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
@@ -17,7 +16,7 @@
             android:id="@+id/sharecode_imagebutton_copy_parents"
             android:layout_width="48dp"
             android:layout_height="45dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:adjustViewBounds="false"
@@ -44,7 +43,7 @@
 
         <TextView
             android:id="@+id/sharecode_textview_insertcode_parents"
-            android:layout_width="110dp"
+            android:layout_width="140dp"
             android:layout_height="47dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
@@ -65,8 +64,8 @@
             android:layout_marginTop="52dp"
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/back_classroom"
             android:background="@color/colorAccent"
-            android:text="@string/sharecode_to_classrooms"
             android:textColor="@color/colorIcons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +90,7 @@
             android:id="@+id/sharecode_imagebutton_copy_teachers"
             android:layout_width="48dp"
             android:layout_height="45dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:adjustViewBounds="false"
@@ -105,7 +104,7 @@
 
         <TextView
             android:id="@+id/sharecode_textview_insertcode_teachers"
-            android:layout_width="110dp"
+            android:layout_width="140dp"
             android:layout_height="47dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -113,7 +112,6 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/textview_border"
             android:gravity="center"
-            android:text="@string/sharecode_insertcode"
             android:textAlignment="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +124,7 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:background="@null"
             android:scaleType="centerInside"
@@ -134,6 +132,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode_parents"
             app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_parents"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/share" />
 
         <ImageButton
@@ -142,13 +141,16 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="32dp"
             android:background="@null"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="@+id/sharecode_textview_insertcode_teachers"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.39"
             app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode_teachers"
             app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_teachers"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/share" />
 
 
