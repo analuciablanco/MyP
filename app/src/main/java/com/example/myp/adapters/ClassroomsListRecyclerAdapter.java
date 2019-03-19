@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.myp.R;
-import com.example.myp.FireBase.Classroom;
+import com.example.myp.FireBase.models.Classroom;
 
 import java.util.ArrayList;
 

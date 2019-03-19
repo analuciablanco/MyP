@@ -1,4 +1,4 @@
-package com.example.myp.FireBase;
+package com.example.myp.FireBase.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

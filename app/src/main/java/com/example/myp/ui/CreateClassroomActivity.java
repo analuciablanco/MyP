@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myp.FireBase.Classroom;
+import com.example.myp.FireBase.models.Classroom;
 import com.example.myp.FireBase.models.ClassRoomMember;
 import com.example.myp.R;
 import com.google.android.gms.tasks.OnCompleteListener;

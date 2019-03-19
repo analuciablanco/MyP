@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.example.myp.R;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
-import com.example.myp.FireBase.Classroom;
+import com.example.myp.FireBase.models.Classroom;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
