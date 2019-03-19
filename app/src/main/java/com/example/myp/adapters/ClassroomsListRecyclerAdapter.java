@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.myp.R;
-import com.example.myp.models.Classroom;
+import com.example.myp.FireBase.models.Classroom;
 
 import java.util.ArrayList;
 
-public class ClassroomsListRecyclerAdapter extends RecyclerView.Adapter<ClassroomsListRecyclerAdapter.ViewHolder>{
+public class ClassroomsListRecyclerAdapter
+        extends RecyclerView.Adapter<ClassroomsListRecyclerAdapter.ViewHolder>{
 
     private ArrayList<Classroom> mClassrooms = new ArrayList<>();
     private ClassroomRecyclerClickListener mClassroomRecyclerClickListener;
@@ -36,15 +37,14 @@ public class ClassroomsListRecyclerAdapter extends RecyclerView.Adapter<Classroo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_classrooms_list_items, parent, false);
         final ViewHolder holder = new ViewHolder(view, mClassroomRecyclerClickListener);
 
-
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        ((ViewHolder)holder).classroomTitle.setText(((Classroom)(mClassrooms.toArray()[position])).getTitle());
-        ((ViewHolder)holder).classroomTitle.setText(mClassrooms.get(position).getTitle());
+//        ((ViewHolder)holder).classroomGrade.setText(((Classroom)(mClassrooms.toArray()[position])).getGrade());
+        ((ViewHolder)holder).classroomGrade.setText(mClassrooms.get(position).titleTag());
     }
 
     @Override
@@ -55,12 +55,12 @@ public class ClassroomsListRecyclerAdapter extends RecyclerView.Adapter<Classroo
     public class ViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener
     {
-        TextView classroomTitle;
+        TextView classroomGrade;
         ClassroomRecyclerClickListener clickListener;
 
         public ViewHolder(View itemView, ClassroomRecyclerClickListener clickListener) {
             super(itemView);
-            classroomTitle = itemView.findViewById(R.id.classroom_title);
+            classroomGrade = itemView.findViewById(R.id.classroom_title);
             this.clickListener = clickListener;
             itemView.setOnClickListener(this);
         }
@@ -75,19 +75,3 @@ public class ClassroomsListRecyclerAdapter extends RecyclerView.Adapter<Classroo
         public void onClassroomSelected(int position);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

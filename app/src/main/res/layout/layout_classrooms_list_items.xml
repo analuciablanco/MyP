@@ -40,7 +40,7 @@
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="30dp"
-            android:text="Aula 2B / 2 Grado / La Salle"
+            android:text=""
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />

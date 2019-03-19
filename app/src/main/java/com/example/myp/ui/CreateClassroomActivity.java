@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -19,10 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myp.ClassRoom;
+import com.example.myp.FireBase.models.Classroom;
 import com.example.myp.FireBase.models.ClassRoomMember;
 import com.example.myp.R;
-import com.example.myp.models.Classroom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -95,7 +93,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
     // Classroom insertion to FireBase
     private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus) {
-        final ClassRoom classRoom = new ClassRoom();
+        final Classroom classRoom = new Classroom();
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);

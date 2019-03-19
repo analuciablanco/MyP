@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.example.myp.R;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
-import com.example.myp.models.Classroom;
+import com.example.myp.FireBase.models.Classroom;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -102,8 +102,8 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                         Classroom classroom = doc.toObject(Classroom.class);
-                        if(!mClassroomIds.contains(classroom.getClassroom_id())){
-                            mClassroomIds.add(classroom.getClassroom_id());
+                        if(!mClassroomIds.contains(classroom.getID())){
+                            mClassroomIds.add(classroom.getID());
                             mClassrooms.add(classroom);
                         }
                     }
