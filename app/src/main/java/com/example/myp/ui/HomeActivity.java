@@ -83,9 +83,8 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(joinClassroom);
     }
 
-    // Navigation to classrooms' list screen
+    // Navigation to return to the classrooms' list screen (by closing this one)
     private void navClassroomsList(){
-        Intent ClassroomsList = new Intent(HomeActivity.this, ClassroomsListActivity.class);
-        startActivity(ClassroomsList);
+        finish();
     }
 }

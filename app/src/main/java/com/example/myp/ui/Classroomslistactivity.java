@@ -6,17 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.View;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
 import com.example.myp.R;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
 import com.example.myp.models.Classroom;
@@ -48,6 +43,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
     private ArrayList<Classroom> mClassrooms = new ArrayList<>();
     private Set<String> mClassroomIds = new HashSet<>();
 
+    // Declaration of the RecyclerView and it's properties (clicks & recycler adapter)
     private ClassroomsListRecyclerAdapter mClassroomsListRecyclerAdapter;
     private RecyclerView mClassroomsListRecyclerView;
     private ListenerRegistration mClassroomEventListener;
@@ -61,14 +57,8 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         // Disable the back-button from the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        // Button to add classrooms/head to home
-        navigateHome();
-
-        // Java-RecyclerView linked to the XML-RecyclerView of all Classrooms
-        mClassroomsListRecyclerView = findViewById(R.id.classrooms_recycler_view);
-
-        // "Plus" floating action button
-        findViewById(R.id.fab_create_classroom).setOnClickListener(this);
+        // Initialization of XML views as Java variables
+        initViews();
 
         // FireBase FireStore Instance Initialization
         mDb = FirebaseFirestore.getInstance();
@@ -77,23 +67,54 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         initClassroomsRecyclerView();
     }
 
+    /* Function to create new Classrooms
+    private void buildNewClassroom(String classroomName){
+        final Classroom classroom = new Classroom();
+        classroom.setTitle(classroomName);
+
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        mDb.setFirestoreSettings(settings);
+
+        DocumentReference newClassroomRef = mDb
+                .collection(getString(R.string.collection_classrooms))
+                .document();
+
+        classroom.setClassroom_id(newClassroomRef.getId());
+
+        newClassroomRef.set(classroom).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    // Navigate to the chat list screen once a classroom is tapped
+                    navChatListActivity(classroom);
+                }else{
+                    View parentLayout = findViewById(android.R.id.content);
+                    Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }*/
+
     // Checks if the + action button has been tapped
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fab_create_classroom:{
-                // newClassroomDialog();
+                navHome();
             }
         }
     }
 
-
+    // Initialization of RecyclerView for all classrooms
     private void initClassroomsRecyclerView(){
         mClassroomsListRecyclerAdapter = new ClassroomsListRecyclerAdapter(mClassrooms, this);
         mClassroomsListRecyclerView.setAdapter(mClassroomsListRecyclerAdapter);
         mClassroomsListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    // Function to display the Classrooms stored on FireBase with the RecyclerView
     private void getClassrooms(){
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
@@ -125,85 +146,18 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                     Log.d(TAG, "onEvent: number of classrooms: " + mClassrooms.size());
                     mClassroomsListRecyclerAdapter.notifyDataSetChanged();
                 }
-
             }
         });
     }
 
-    private void buildNewClassroom(String classroomName){
-        final Classroom classroom = new Classroom();
-        classroom.setTitle(classroomName);
-
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setTimestampsInSnapshotsEnabled(true)
-                .build();
-        mDb.setFirestoreSettings(settings);
-
-        DocumentReference newClassroomRef = mDb
-                .collection(getString(R.string.collection_classrooms))
-                .document();
-
-        classroom.setClassroom_id(newClassroomRef.getId());
-
-        newClassroomRef.set(classroom).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    // Navigate to the chat list screen once a classroom is tapped
-                    navChatListActivity(classroom);
-                }else{
-                    View parentLayout = findViewById(android.R.id.content);
-                    Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    // Navigate to the chat list screen once a classroom is tapped
-    private void navChatListActivity(Classroom classroom){
-        Intent intent = new Intent(ClassroomsListActivity.this, ChatListActivity.class);
-        intent.putExtra(getString(R.string.intent_chatroom), classroom);
-        startActivity(intent);
-    }
-
-    // Dialog to create a New classroom
-    private void newClassroomDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter a classroom name");
-
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-
-        builder.setPositiveButton("CREATE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(!input.getText().toString().equals("")){
-                    buildNewClassroom(input.getText().toString());
-                }
-                else {
-                    Toast.makeText(ClassroomsListActivity.this, "Enter a classroom name", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
-
-    // Navigation to a specific classroom's chatlist ?
+    // Specific Navigation to the tapped chat list
     @Override
     public void onClassroomSelected(int position) {
         navChatListActivity(mClassrooms.get(position));
         // navChatListActivity( ((Classroom)(mClassrooms.toArray()[position])));
     }
 
-    // Checks database to remove deleted classrooms
+    // Removes the classroom listener linked to FireBase once you close the app
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -217,6 +171,19 @@ public class ClassroomsListActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         getClassrooms();
+    }
+
+    // Function to navigate to classroom creation (Home)
+    public void navHome() {
+        Intent home = new Intent(ClassroomsListActivity.this, HomeActivity.class);
+        startActivity(home);
+    }
+
+    // Navigate to the chat list screen once a classroom is tapped
+    private void navChatListActivity(Classroom classroom){
+        Intent chatList = new Intent(ClassroomsListActivity.this, ChatListActivity.class);
+        chatList.putExtra(getString(R.string.intent_chatroom), classroom);
+        startActivity(chatList);
     }
 
     // Function (different from finish()) to navigate back to parent layout.
@@ -233,16 +200,12 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         return super.onCreateOptionsMenu(menu);
     }
 
-    // Function to navigate to classroom creation (Home)
-    public void navigateHome() {
-        FloatingActionButton floatingButton = findViewById(R.id.fab_create_classroom);
-        floatingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToHome = new Intent(ClassroomsListActivity.this, HomeActivity.class);
-                startActivity(goToHome);
-            }
-        });
+    // Function to initialize the XML objects as Java variables
+    private void initViews(){
+        // Java-RecyclerView linked to the XML-RecyclerView of all Classrooms
+        mClassroomsListRecyclerView = findViewById(R.id.classrooms_recycler_view);
+
+        // "Plus" floating action button
+        findViewById(R.id.fab_create_classroom).setOnClickListener(this);
     }
 }
-

@@ -1,14 +1,18 @@
 package com.example.myp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -18,6 +22,7 @@ import android.widget.Toast;
 import com.example.myp.ClassRoom;
 import com.example.myp.FireBase.models.ClassRoomMember;
 import com.example.myp.R;
+import com.example.myp.models.Classroom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +48,9 @@ public class CreateClassroomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_classroom);
 
+        // Hide Keyboard upon startup
+        hideSoftKeyboard();
+
         // Initialization of Java variables to their analogous XML elements
         initViews();
 
@@ -65,6 +73,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
         create_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Hide Keyboard
+                hideSoftKeyboard();
 
                 // Disable the button to avoid multiple classroom creation
                 create_button.setClickable(false);
@@ -81,13 +91,6 @@ public class CreateClassroomActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    // Function (different from finish()) to navigate back to parent layout.
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        NavUtils.navigateUpFromSameTask(this);
     }
 
     // Classroom insertion to FireBase
@@ -131,7 +134,11 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
     // Classroom registration validation function
     private boolean attemptClassroomRegistration() {
+        // Variable to validate that all fields are correctly filled
         boolean authentication = true;
+
+        // This sends your screen to the first empty field from the top.
+        View focusView = null;
 
         String grade = GradeSpinner.getSelectedItem().toString();
         String group = GroupSpinner.getSelectedItem().toString();
@@ -139,16 +146,20 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
         // If any of the fields is empty: print message, avoid navigation to next
         // screen and enable the classroom creation button once more to try again.
-        if ((TextUtils.isEmpty(grade) || TextUtils.isEmpty(group) || TextUtils.isEmpty(schoolName))) {
+        if (TextUtils.isEmpty(schoolName)) {
+            focusView = editText_School;
             showMessage("Necesitas llenar todos los  campos para crear el aula.");
+            focusView.requestFocus();
+
             authentication = false;
             create_button.setClickable(true);
         }
 
-        // If everything is correction, authentication will be true and program continues.
+        // If everything is correct, authentication will be true and program continues.
         return authentication;
     }
 
+    // Function to insert the class's creator as an admin
     private void insertMemberAdmin(final String IdDocument, final String adminRole, DocumentReference newUserRef) {
         ClassRoomMember classRoomMember = new ClassRoomMember();
         classRoomMember.setUser_id(FirebaseAuth.getInstance().getUid());
@@ -173,6 +184,14 @@ public class CreateClassroomActivity extends AppCompatActivity {
         });
     }
 
+    // Navigate to the share code screen after a classroom's created and close this one.
+    private void navShareCode()
+    {
+        Intent ShareCode = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
+        startActivity(ShareCode);
+        finish();
+    }
+
     // This function is used to easily set Toast print messages
     private void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
@@ -186,11 +205,23 @@ public class CreateClassroomActivity extends AppCompatActivity {
         create_button = findViewById(R.id.create_button);
     }
 
-    // Navigate to the share code screen after a classroom's created and close this one.
-    private void navShareCode()
-    {
-        Intent ShareCode = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
-        startActivity(ShareCode);
-        finish();
+    // Function (different from finish()) to navigate back to parent layout.
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
+    }
+
+    // Function to hide the keyboard upon use.
+    private void hideSoftKeyboard(){
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
     }
 }
