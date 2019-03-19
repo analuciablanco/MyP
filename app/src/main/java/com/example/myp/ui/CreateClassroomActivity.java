@@ -42,6 +42,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_classroom);
+
+        // Initialization of Java variables to their analogous XML elements
         initViews();
 
         // ActionListener to accept Enter input on keyboard
@@ -161,9 +163,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 // Navigate to your invitation code and close this screen.
-                Intent intent = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
-                startActivity(intent);
-                finish();
+                navShareCode();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -184,5 +184,13 @@ public class CreateClassroomActivity extends AppCompatActivity {
         GradeSpinner = findViewById(R.id.GradeSpinner);
         editText_School = findViewById(R.id.editText_School);
         create_button = findViewById(R.id.create_button);
+    }
+
+    // Navigate to the share code screen after a classroom's created and close this one.
+    private void navShareCode()
+    {
+        Intent ShareCode = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
+        startActivity(ShareCode);
+        finish();
     }
 }

@@ -26,9 +26,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Go to Classrooms List
-                Intent intent = new Intent(JoinClassroomActivity.this, ClassroomsListActivity.class);
-                startActivity(intent);
-                finish();
+                navClassroomsList();
             }
         });
 
@@ -45,6 +43,12 @@ public class JoinClassroomActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void navClassroomsList(){
+        Intent classroomsList = new Intent(JoinClassroomActivity.this, ClassroomsListActivity.class);
+        startActivity(classroomsList);
+        finish();
     }
 
     // Function (different from finish()) to navigate back to parent layout.

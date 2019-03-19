@@ -17,17 +17,13 @@ import com.example.myp.R;
 
 //Class to share the code
 public class ShareCodeActivity extends AppCompatActivity {
+    // Declaration of Java-XML views
     TextView    sharecode_textview_parents,
                 sharecode_textview_teachers;
-
-
     String      sharecode_textview_insertcode_parents,
                 sharecode_textview_insertcode_teachers;
-
     ImageButton sharecode_imagebutton_copy_parents,
                 sharecode_imagebutton_copy_teachers;
-
-
     ImageButton sharecode_imagebutton_share_parents,
                 sharecode_imagebutton_share_teachers;
 
@@ -36,18 +32,10 @@ public class ShareCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sharecode);
 
+        // Java-XML initialization
+        initViews();
 
-        sharecode_textview_parents = findViewById(R.id.sharecode_textview_insertcode_parents);
-        sharecode_imagebutton_copy_parents = findViewById(R.id.sharecode_imagebutton_copy_parents);
-
-
-        sharecode_textview_teachers = findViewById(R.id.sharecode_textview_insertcode_teachers);
-        sharecode_imagebutton_copy_teachers = findViewById(R.id.sharecode_imagebutton_copy_teachers);
-
-        sharecode_imagebutton_share_parents = findViewById(R.id.sharecode_imagebutton_share_parents);
-        sharecode_imagebutton_share_teachers = findViewById(R.id.sharecode_imagebutton_share_teachers);
-
-        //Class to copy the parents' code
+        // Class to copy the parents' code
         sharecode_imagebutton_copy_parents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +47,7 @@ public class ShareCodeActivity extends AppCompatActivity {
         });
 
 
-        //Class to copy the teachers' code
+        // Class to copy the teachers' code
         sharecode_imagebutton_copy_teachers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +58,7 @@ public class ShareCodeActivity extends AppCompatActivity {
             }
         });
 
-        //Share button for parents
+        // Share button for parents
         sharecode_imagebutton_share_parents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,14 +69,14 @@ public class ShareCodeActivity extends AppCompatActivity {
                 String shareBody =  "*PADRES Y MAESTROS*\nEste es tu codigo para ingresar al aula como _padre_: \n"
                                     + codeShared_parents;
 
-                String shareSub = "Codigo para ingresar a un aula";
+                String shareSub = "Código para ingresar a un aula";
                 share_button.putExtra(Intent.EXTRA_SUBJECT, shareSub);
                 share_button.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(share_button, "Share using"));
             }
         });
 
-        //Share button for teachers
+        // Share button for teachers
         sharecode_imagebutton_share_teachers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,11 +84,11 @@ public class ShareCodeActivity extends AppCompatActivity {
 
                 Intent share_button_teachers = new Intent(Intent.ACTION_SEND);
                 share_button_teachers.setType("text/plain");
-                //We should change this to call a XML string, for this time it works
+                // We should change this to call a XML string, for this time it works
                 String shareBodys =  "*PADRES Y MAESTROS*\nEste es tu codigo para ingresar al aula como _maestro_: \n"
-                                    + codeShared_teachers;
+                        + codeShared_teachers;
 
-                String shareSubs = "Codigo para ingresar a un aula";
+                String shareSubs = "Código para ingresar a un aula";
                 share_button_teachers.putExtra(Intent.EXTRA_SUBJECT, shareSubs);
                 share_button_teachers.putExtra(Intent.EXTRA_TEXT, shareBodys);
                 startActivity(Intent.createChooser(share_button_teachers, "Share using"));
@@ -112,16 +100,30 @@ public class ShareCodeActivity extends AppCompatActivity {
         button_to_classrooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Go to Classrooms List
-                Intent intent = new Intent(ShareCodeActivity.this, ClassroomsListActivity.class);
-                startActivity(intent);
-                finish();
+                // Navigate Classrooms List and close this one
+                navClassroomsList();
             }
         });
     }
 
+    // Navigate to Classrooms List and close this one
+    private void navClassroomsList(){
+        Intent classroomsList = new Intent(ShareCodeActivity.this, ClassroomsListActivity.class);
+        startActivity(classroomsList);
+        finish();
+    }
+    // Initialization of Java variables to their analogous XML elements
+    private void initViews(){
+        // Parents' share code
+        sharecode_textview_parents = findViewById(R.id.sharecode_textview_insertcode_parents);
+        sharecode_imagebutton_copy_parents = findViewById(R.id.sharecode_imagebutton_copy_parents);
+        sharecode_imagebutton_share_parents = findViewById(R.id.sharecode_imagebutton_share_parents);
 
-
+        // Teachers' share code
+        sharecode_textview_teachers = findViewById(R.id.sharecode_textview_insertcode_teachers);
+        sharecode_imagebutton_copy_teachers = findViewById(R.id.sharecode_imagebutton_copy_teachers);
+        sharecode_imagebutton_share_teachers = findViewById(R.id.sharecode_imagebutton_share_teachers);
+    }
 
     // Function (different from finish()) to navigate back to parent layout.
     @Override
@@ -129,5 +131,4 @@ public class ShareCodeActivity extends AppCompatActivity {
         super.onBackPressed();
         NavUtils.navigateUpFromSameTask(this);
     }
-
 }

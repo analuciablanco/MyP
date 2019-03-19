@@ -46,13 +46,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Gives a blue color to the user registration label
         initCreateAccountTextView();
+
+        // Connects XML objects to their java analogous variables
         initViews();
 
         // Hide Keyboard
         hideSoftKeyboard();
 
-        // ActionListener to accept Enter input on keyboard
+        // ActionListener to accept "Enter" input on keyboard
         // (from an editText XML element) as a press on the login button
         editTextPassword.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -73,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 // Disable the login button to avoid extra taps
                 buttonLogin.setClickable(false);
 
-                // Check if user input is correct or not
+                // Check if user input is correct or not (front-end)
                 if (validate()) {
+                    // Hide Keyboard if front-end validation is correct
                     hideSoftKeyboard();
+
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
 
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Function to sign in (validated through firebase)
+    // Function to sign in (validated through FireBase)
     private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -99,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     // Sign is was successful; print congrats message
                     showMessage("Has iniciado sesión exitosamente.");
 
-                    // Change to home screen
+                    // Navigate to home screen
                     Intent intent = new Intent(MainActivity.this, ClassroomsListActivity.class);
                     startActivity(intent);
 
@@ -131,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Navigate to registration screen
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                navRegistration();
                 // The screen isn't closed with finish() so you can return
             }
         });
@@ -222,7 +226,13 @@ public class MainActivity extends AppCompatActivity {
         return (email.contains("@") && email.contains("."));
     }
 
-    // Function to (supposedly) hide the keyboard upon use.
+    // Navigate to the registration screen
+    private void navRegistration(){
+        Intent register = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(register);
+    }
+
+    // Function to hide the keyboard upon use.
     private void hideSoftKeyboard(){
         // Check if no view has focus:
         View view = this.getCurrentFocus();

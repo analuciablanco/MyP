@@ -53,7 +53,7 @@
 
         <activity
             android:name=".ui.ChatListActivity"
-            android:label="@string/collection_chatrooms"
+            android:label="@string/collection_classrooms"
             android:parentActivityName=".ui.ClassroomsListActivity"/>
 
         <activity

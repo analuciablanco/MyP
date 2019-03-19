@@ -17,7 +17,6 @@ import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.myp.R;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
 import com.example.myp.models.Classroom;
@@ -32,7 +31,6 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,11 +41,12 @@ import javax.annotation.Nullable;
 public class ClassroomsListActivity extends AppCompatActivity implements
         View.OnClickListener,
         ClassroomsListRecyclerAdapter.ClassroomRecyclerClickListener {
-        private static final String TAG = "ClassroomsListActivity";
+
+    private static final String TAG = "ClassroomsListActivity";
 
     // Variables
-    private ArrayList<Classroom> mChatrooms = new ArrayList<>();
-    private Set<String> mChatroomIds = new HashSet<>();
+    private ArrayList<Classroom> mClassrooms = new ArrayList<>();
+    private Set<String> mClassroomIds = new HashSet<>();
 
     private ClassroomsListRecyclerAdapter mClassroomsListRecyclerAdapter;
     private RecyclerView mClassroomsListRecyclerView;
@@ -59,7 +58,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classrooms_list);
 
-        // Disable backButton from action bar
+        // Disable the back-button from the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         // Button to add classrooms/head to home
@@ -68,26 +67,29 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         // Java-RecyclerView linked to the XML-RecyclerView of all Classrooms
         mClassroomsListRecyclerView = findViewById(R.id.classrooms_recycler_view);
 
-        // "Plus" action button
-        findViewById(R.id.fab_create_chatroom).setOnClickListener(this);
+        // "Plus" floating action button
+        findViewById(R.id.fab_create_classroom).setOnClickListener(this);
 
         // FireBase FireStore Instance Initialization
         mDb = FirebaseFirestore.getInstance();
 
         // Recycler View Manipulation
-        initChatroomRecyclerView();
+        initClassroomsRecyclerView();
     }
 
     // Checks if the + action button has been tapped
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.fab_create_chatroom:{newClassroomDialog();} // Cambia esto por la navegación a Home
+            case R.id.fab_create_classroom:{
+                // newClassroomDialog();
+            }
         }
     }
 
-    private void initChatroomRecyclerView(){
-        mClassroomsListRecyclerAdapter = new ClassroomsListRecyclerAdapter(mChatrooms, this);
+
+    private void initClassroomsRecyclerView(){
+        mClassroomsListRecyclerAdapter = new ClassroomsListRecyclerAdapter(mClassrooms, this);
         mClassroomsListRecyclerView.setAdapter(mClassroomsListRecyclerAdapter);
         mClassroomsListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -99,7 +101,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         mDb.setFirestoreSettings(settings);
 
         CollectionReference classroomsCollection = mDb
-                .collection(getString(R.string.collection_chatrooms));
+                .collection(getString(R.string.collection_classrooms));
 
         mClassroomEventListener = classroomsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -115,12 +117,12 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                         Classroom classroom = doc.toObject(Classroom.class);
-                        if(!mChatroomIds.contains(classroom.getClassroom_id())){
-                            mChatroomIds.add(classroom.getClassroom_id());
-                            mChatrooms.add(classroom);
+                        if(!mClassroomIds.contains(classroom.getClassroom_id())){
+                            mClassroomIds.add(classroom.getClassroom_id());
+                            mClassrooms.add(classroom);
                         }
                     }
-                    Log.d(TAG, "onEvent: number of chatrooms: " + mChatrooms.size());
+                    Log.d(TAG, "onEvent: number of classrooms: " + mClassrooms.size());
                     mClassroomsListRecyclerAdapter.notifyDataSetChanged();
                 }
 
@@ -138,7 +140,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         mDb.setFirestoreSettings(settings);
 
         DocumentReference newClassroomRef = mDb
-                .collection(getString(R.string.collection_chatrooms))
+                .collection(getString(R.string.collection_classrooms))
                 .document();
 
         classroom.setClassroom_id(newClassroomRef.getId());
@@ -147,6 +149,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    // Navigate to the chat list screen once a classroom is tapped
                     navChatListActivity(classroom);
                 }else{
                     View parentLayout = findViewById(android.R.id.content);
@@ -156,14 +159,14 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         });
     }
 
-    // Navigation to the chat list screen once a classroom is tapped
+    // Navigate to the chat list screen once a classroom is tapped
     private void navChatListActivity(Classroom classroom){
         Intent intent = new Intent(ClassroomsListActivity.this, ChatListActivity.class);
         intent.putExtra(getString(R.string.intent_chatroom), classroom);
         startActivity(intent);
     }
 
-    // New classroom
+    // Dialog to create a New classroom
     private void newClassroomDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter a classroom name");
@@ -193,11 +196,11 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         builder.show();
     }
 
-    // Function for when a classroom is clicked
+    // Navigation to a specific classroom's chatlist ?
     @Override
     public void onClassroomSelected(int position) {
-        navChatListActivity(mChatrooms.get(position));
-        // navChatListActivity( ((Classroom)(mChatrooms.toArray()[position])));
+        navChatListActivity(mClassrooms.get(position));
+        // navChatListActivity( ((Classroom)(mClassrooms.toArray()[position])));
     }
 
     // Checks database to remove deleted classrooms
@@ -232,7 +235,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
 
     // Function to navigate to classroom creation (Home)
     public void navigateHome() {
-        FloatingActionButton floatingButton = findViewById(R.id.fab_create_chatroom);
+        FloatingActionButton floatingButton = findViewById(R.id.fab_create_classroom);
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

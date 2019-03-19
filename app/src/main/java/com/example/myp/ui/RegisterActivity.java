@@ -82,13 +82,13 @@ public class RegisterActivity extends AppCompatActivity {
                 if (attemptRegistration()) {
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
-                    String UserName = editTextUserName.getText().toString();
+                    String FirstName = editTextUserName.getText().toString();
                     String FirstLastName = editTextFirstLastName.getText().toString();
                     String SecondLastName = editTextSecondLastName.getText().toString();
                     String Phone = editTextPhone.getText().toString();
                     String Gender = spinnerGenero.getSelectedItem().toString();
 
-                    String FullName = UserName + " " + FirstLastName + " " + SecondLastName;
+                    String FullName = FirstName + " " + FirstLastName + " " + SecondLastName;
 
                     // Function to create the user in FireBase FireStore and exit layout
                     createUser(Email, Password, FullName, Phone, Gender);
@@ -128,6 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                             newUserRef.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
+                                            // Once the user's created, close the screen.
                                             showMessage("Registro de usuario exitoso.");
                                             finish();
                                         }
