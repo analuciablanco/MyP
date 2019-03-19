@@ -2,12 +2,9 @@ package com.example.myp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.View;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +12,7 @@ import android.util.Log;
 import com.example.myp.R;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
 import com.example.myp.models.Classroom;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -66,36 +60,6 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         // Recycler View Manipulation
         initClassroomsRecyclerView();
     }
-
-    /* Function to create new Classrooms
-    private void buildNewClassroom(String classroomName){
-        final Classroom classroom = new Classroom();
-        classroom.setTitle(classroomName);
-
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setTimestampsInSnapshotsEnabled(true)
-                .build();
-        mDb.setFirestoreSettings(settings);
-
-        DocumentReference newClassroomRef = mDb
-                .collection(getString(R.string.collection_classrooms))
-                .document();
-
-        classroom.setClassroom_id(newClassroomRef.getId());
-
-        newClassroomRef.set(classroom).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    // Navigate to the chat list screen once a classroom is tapped
-                    navChatListActivity(classroom);
-                }else{
-                    View parentLayout = findViewById(android.R.id.content);
-                    Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }*/
 
     // Checks if the + action button has been tapped
     @Override
