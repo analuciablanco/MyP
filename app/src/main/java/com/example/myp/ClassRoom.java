@@ -25,7 +25,6 @@ public class ClassRoom implements Parcelable {
         this.code_parent = code_parent;
         this.status = status;
     }
-
     public ClassRoom(){
 
     }
@@ -73,21 +72,24 @@ public class ClassRoom implements Parcelable {
         this.school_name = school_name;
     }
 
+    public String getCode_teacher() { return code_teacher;}
+    public void setCode_teacher(String code_teacher) {
+        this.code_teacher = code_teacher;}
+
+    public String getCode_parent(){ return code_parent; }
+    public void setCode_parent(String code_parent){
+        this.code_parent = code_parent;}
+
     public String getID() { return ID; }
     public void setID(String ID) { this.ID = ID; }
 
-    public String getCodeTeacher() { return code_teacher; }
-    public void setCodeTeacher() { this.code_teacher = RandomStringUtils.random(6, true, true); }
-
-    public String getCodeParent() { return code_parent; }
-    public void setCodeParent() { this.code_parent = RandomStringUtils.random(6, true, true); }
-
-    public void setStatus(String status){
-        this.status = status;
-    }
     public String getStatus() {
         return status;
     }
+    public void setStatus(String status){
+        this.status = status;
+    }
+
 
     @Override
     public String toString(){

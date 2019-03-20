@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +76,9 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
                     // Insertion of Classroom data to FireBase
                     String classroomStatus = "ACTIVO";
-                    insertClassroom(grade, group, school_name, classroomStatus);
+                    String codeParent = RandomStringUtils.random(6, true, true);
+                    String codeTeacher = RandomStringUtils.random(6, true, true);
+                    insertClassroom(grade, group, school_name, classroomStatus, codeParent, codeTeacher);
                 }
             }
         });
@@ -88,13 +92,13 @@ public class CreateClassroomActivity extends AppCompatActivity {
     }
 
     // Classroom insertion to FireBase
-    private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus) {
+    private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus, final String codeParent, final String codeTeacher) {
         final ClassRoom classRoom = new ClassRoom();
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);
-        classRoom.setCodeTeacher();
-        classRoom.setCodeParent();
+        classRoom.setCode_parent(codeParent);
+        classRoom.setCode_teacher(codeTeacher);
         classRoom.setStatus(classroomStatus);
 
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -112,9 +116,9 @@ public class CreateClassroomActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         // Classroom created. Print success message
                         showMessage("Creación de aula exitosa.");
-
+                        String member_status = "ACTIVO";
                         String admin = "admin";
-                        insertMemberAdmin(classRoom.getID(), admin, newUserRef);
+                        insertMemberAdmin(classRoom.getID(), admin, newUserRef, member_status);
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -146,16 +150,16 @@ public class CreateClassroomActivity extends AppCompatActivity {
         return authentication;
     }
 
-    private void insertMemberAdmin(final String IdDocument, final String adminRole, DocumentReference newUserRef) {
+    private void insertMemberAdmin(final String IdDocument, final String adminRole, DocumentReference newUserRef, final String member_status) {
         ClassRoomMember classRoomMember = new ClassRoomMember();
         classRoomMember.setUser_id(FirebaseAuth.getInstance().getUid());
         classRoomMember.setRole(adminRole);
+        classRoomMember.setMember_status(member_status);
 
         final DocumentReference newMemberRef = newUserRef
                 .collection(getString(R.string.collection_classrom_members)).document();
 
         classRoomMember.setMember_id(newMemberRef.getId());
-
         newMemberRef.set(classRoomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
