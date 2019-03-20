@@ -109,10 +109,10 @@ public class ShareCodeActivity extends AppCompatActivity {
 
                 if(documentSnapshot.exists())
                 {
-                    String codeParent = documentSnapshot.getString("codeParent");
+                    String codeParent = documentSnapshot.getString("code_parent");
                     sharecode_textview_parents.setText(codeParent);
 
-                    String codeTeacher = documentSnapshot.getString("codeTeacher");
+                    String codeTeacher = documentSnapshot.getString("code_teacher");
                     sharecode_textview_teachers.setText(codeTeacher);
                 }
             }
@@ -128,23 +128,18 @@ public class ShareCodeActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if(documentSnapshot.exists())
                         {
-                            showMessage("Si existe y si entró uff");
-                            String codeParent = documentSnapshot.getString("codeParent");
+                            String codeParent = documentSnapshot.getString("code_parent");
                             sharecode_textview_parents.setText(codeParent);
 
-                            String codeTeacher = documentSnapshot.getString("codeTeacher");
+                            String codeTeacher = documentSnapshot.getString("code_teacher");
                             sharecode_textview_teachers.setText(codeTeacher);
-                        }
-                        else
-                        {
-                            showMessage("Nel, no funciona");
                         }
                     }
                 })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                showMessage("No existe en la db");
+                                showMessage("No se encuentra en la base de datos");
                             }
                         });
             }
@@ -152,7 +147,7 @@ public class ShareCodeActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage("Rip");
+                        showMessage("No hay existencia del documento");
                     }
                 });
     }

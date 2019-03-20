@@ -80,7 +80,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
                     String classroomStatus = "ACTIVO";
                     String codeParent = RandomStringUtils.random(6, true, true);
                     String codeTeacher = RandomStringUtils.random(6, true, true);
-                    insertClassroom(grade, group, school_name, classroomStatus, codeParent, codeTeacher);
+                    insertClassroom(grade, group, school_name, classroomStatus);
                 }
             }
         });
@@ -99,8 +99,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);
-        classRoom.setCodeTeacher(RandomStringUtils.random(6, true, true));
-        classRoom.setCodeParent(RandomStringUtils.random(6, true, true));
+        classRoom.setCode_teacher(RandomStringUtils.random(6, true, true));
+        classRoom.setCode_parent(RandomStringUtils.random(6, true, true));
         classRoom.setStatus(classroomStatus);
 
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
