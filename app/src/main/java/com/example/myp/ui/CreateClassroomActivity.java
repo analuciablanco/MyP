@@ -29,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 // Clase para Crear Aulas
 public class CreateClassroomActivity extends AppCompatActivity {
 
@@ -37,6 +39,10 @@ public class CreateClassroomActivity extends AppCompatActivity {
     Spinner GroupSpinner;       // Spinner
     EditText editText_School;   // EditText
     Button create_button;       // Button
+
+    Classroom classroom = new Classroom();
+    DocumentReference newUserRef, newMemberRef;
+
 
     // Database variable Declaration
     private FirebaseFirestore aulaDB = FirebaseFirestore.getInstance();
@@ -93,32 +99,32 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
     // Classroom insertion to FireBase
     private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus) {
-        final Classroom classRoom = new Classroom();
-        classRoom.setGrade(grade);
-        classRoom.setGroup(group);
-        classRoom.setSchool_name(school_name);
-        classRoom.setCodeTeacher();
-        classRoom.setCodeParent();
-        classRoom.setStatus(classroomStatus);
+        //final Classroom classroom = new Classroom();
+        classroom.setGrade(grade);
+        classroom.setGroup(group);
+        classroom.setSchool_name(school_name);
+        classroom.setCode_teacher(RandomStringUtils.random(6, true, true));
+        classroom.setCode_parent(RandomStringUtils.random(6, true, true));
+        classroom.setStatus(classroomStatus);
 
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
         aulaDB.setFirestoreSettings(settings);
 
-        final DocumentReference newUserRef = aulaDB
+        newUserRef = aulaDB
                 .collection(getString(R.string.collection_classrooms))
                 .document();
-        classRoom.setID(newUserRef.getId());
+        classroom.setID(newUserRef.getId());
 
-        newUserRef.set(classRoom).addOnCompleteListener(new OnCompleteListener<Void>() {
+        newUserRef.set(classroom).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // Classroom created. Print success message
                         showMessage("Creación de aula exitosa.");
-
+                        String member_status = "ACTIVO";
                         String admin = "admin";
-                        insertMemberAdmin(classRoom.getID(), admin, newUserRef);
+                        insertMemberAdmin(admin, newUserRef, member_status);
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -158,17 +164,19 @@ public class CreateClassroomActivity extends AppCompatActivity {
     }
 
     // Function to insert the class's creator as an admin
-    private void insertMemberAdmin(final String IdDocument, final String adminRole, DocumentReference newUserRef) {
-        ClassRoomMember classRoomMember = new ClassRoomMember();
-        classRoomMember.setUser_id(FirebaseAuth.getInstance().getUid());
-        classRoomMember.setRole(adminRole);
+    private void insertMemberAdmin(final String adminRole, DocumentReference newUserRef, final String member_status) {
+        ClassRoomMember classroomMember = new ClassRoomMember();
 
-        final DocumentReference newMemberRef = newUserRef
+        classroomMember.setUser_id(FirebaseAuth.getInstance().getUid());
+        classroomMember.setRole(adminRole);
+        classroomMember.setMember_status(member_status);
+
+        newMemberRef = newUserRef
                 .collection(getString(R.string.collection_classrom_members)).document();
 
-        classRoomMember.setMember_id(newMemberRef.getId());
+        classroomMember.setMember_id(newMemberRef.getId());
 
-        newMemberRef.set(classRoomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
+        newMemberRef.set(classroomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 // Navigate to your invitation code and close this screen.
@@ -186,6 +194,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
     private void navShareCode()
     {
         Intent ShareCode = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
+        ShareCode.putExtra("classroom_document_ID", classroom.getID());
         startActivity(ShareCode);
         finish();
     }

@@ -2,6 +2,7 @@ package com.example.myp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -59,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                 // Disable the button to avoid double clicks
                 backToChatList.setClickable(false);
                 // Navigate to classrooms' list screen
-                navClassroomsList();
+                onBackPressed();
             }
         });
     }
@@ -83,8 +84,12 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(joinClassroom);
     }
 
-    // Navigation to return to the classrooms' list screen (by closing this one)
-    private void navClassroomsList(){
+    // Function (different from finish()) to navigate back to parent layout (classrooms' list screen)
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent classroomsList = new Intent(HomeActivity.this, ClassroomsListActivity.class);
+        startActivity(classroomsList);
         finish();
     }
 }

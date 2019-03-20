@@ -9,11 +9,13 @@ public class ClassRoomMember implements Parcelable{
     private String member_id;
     private String user_id;
     private String role;
+    private String member_status;
 
     private ClassRoomMember(String member_id,String user_id, String role){
         this.member_id = member_id;
         this.user_id = user_id;
         this.role = role;
+        this.member_status = member_status;
     }
     public ClassRoomMember(){
 
@@ -22,6 +24,7 @@ public class ClassRoomMember implements Parcelable{
         member_id = in.readString();
         user_id = in.readString();
         role = in.readString();
+        member_status = in.readString();
     }
 
     public static final Creator<ClassRoomMember> CREATOR = new Creator<ClassRoomMember>() {
@@ -57,12 +60,17 @@ public class ClassRoomMember implements Parcelable{
         this.role = role;
     }
 
+
+    public String getMember_status(){return  member_status;}
+    public void  setMember_status(String member_status){this.member_status = member_status;}
+
     @Override
     public String toString(){
         return "classroomMembers{" +
                 "memberID='" + member_id + '\'' +
                 ",userID='" + user_id + '\'' +
-                ", role='" + role + '\'' +
+                ",member_role='" + role + '\'' +
+                ",member_status='" + member_status + '\'' +
                 '}';
     }
 
@@ -76,5 +84,6 @@ public class ClassRoomMember implements Parcelable{
         dest.writeString(member_id);
         dest.writeString(user_id);
         dest.writeString(role);
+        dest.writeString(member_status);
     }
 }

@@ -75,11 +75,11 @@ public class Classroom implements Parcelable {
         this.school_name = school_name;
     }
 
-    public String getCodeTeacher() { return code_teacher; }
-    public void setCodeTeacher() { this.code_teacher = RandomStringUtils.random(6, true, true); }
+    public String getCode_teacher() { return code_teacher; }
+    public void setCode_teacher(String code_teacher) { this.code_teacher = code_teacher; }
 
-    public String getCodeParent() { return code_parent; }
-    public void setCodeParent() { this.code_parent = RandomStringUtils.random(6, true, true); }
+    public String getCode_parent() { return code_parent; }
+    public void setCode_parent(String code_parent) { this.code_parent = code_parent; }
 
     public String getStatus() {
         return status;

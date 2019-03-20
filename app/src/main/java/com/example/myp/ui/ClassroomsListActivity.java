@@ -141,6 +141,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
     public void navHome() {
         Intent home = new Intent(ClassroomsListActivity.this, HomeActivity.class);
         startActivity(home);
+        finish();
     }
 
     // Navigate to the chat list screen once a classroom is tapped
