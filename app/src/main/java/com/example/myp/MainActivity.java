@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     showMessage("Has iniciado sesión exitosamente.");
 
                     // Change to home screen
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ClassroomsListActivity.class);
                     startActivity(intent);
 
                     // Terminate screen to avoid returning without first logging out.

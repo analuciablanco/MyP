@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/createClassroomButton"
             android:layout_width="0dp"
-            android:layout_height="265dp"
+            android:layout_height="162dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -26,8 +26,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="174dp"
-                android:layout_height="154dp"
+                android:layout_width="153dp"
+                android:layout_height="125dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
@@ -52,7 +52,7 @@
 
         <View
             android:id="@+id/divider"
-            android:layout_width="395dp"
+            android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -64,7 +64,7 @@
         <LinearLayout
             android:id="@+id/joinClassroomButton"
             android:layout_width="0dp"
-            android:layout_height="194dp"
+            android:layout_height="162dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -77,8 +77,8 @@
             app:layout_constraintTop_toBottomOf="@+id/divider">
 
             <ImageView
-                android:layout_width="174dp"
-                android:layout_height="154dp"
+                android:layout_width="153dp"
+                android:layout_height="125dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
@@ -101,17 +101,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <View
-            android:id="@+id/divider1"
-            android:layout_width="395dp"
-            android:layout_height="3dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createClassroomButton" />
-
         <LinearLayout
             android:id="@+id/backChatListButton"
             android:layout_width="0dp"
@@ -129,8 +118,8 @@
             app:layout_constraintVertical_bias="0.109">
 
             <ImageView
-                android:layout_width="174dp"
-                android:layout_height="154dp"
+                android:layout_width="153dp"
+                android:layout_height="125dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
@@ -155,7 +144,7 @@
 
         <View
             android:id="@+id/divider3"
-            android:layout_width="395dp"
+            android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"

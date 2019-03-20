@@ -36,6 +36,8 @@ public class CreateClassroomActivity extends AppCompatActivity {
     EditText editText_School;   // EditText
     Button create_button;       // Button
 
+    ClassRoom classRoom = new ClassRoom();
+
     // Database variable Declaration
     private FirebaseFirestore aulaDB = FirebaseFirestore.getInstance();
 
@@ -92,13 +94,13 @@ public class CreateClassroomActivity extends AppCompatActivity {
     }
 
     // Classroom insertion to FireBase
-    private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus, final String codeParent, final String codeTeacher) {
-        final ClassRoom classRoom = new ClassRoom();
+    private void insertClassroom(final String grade, final String group, final String school_name, final String classroomStatus) {
+        //final ClassRoom classRoom = new ClassRoom();
         classRoom.setGrade(grade);
         classRoom.setGroup(group);
         classRoom.setSchool_name(school_name);
-        classRoom.setCode_parent(codeParent);
-        classRoom.setCode_teacher(codeTeacher);
+        classRoom.setCodeTeacher(RandomStringUtils.random(6, true, true));
+        classRoom.setCodeParent(RandomStringUtils.random(6, true, true));
         classRoom.setStatus(classroomStatus);
 
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -114,7 +116,6 @@ public class CreateClassroomActivity extends AppCompatActivity {
         newUserRef.set(classRoom).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        // Classroom created. Print success message
                         showMessage("Creación de aula exitosa.");
                         String member_status = "ACTIVO";
                         String admin = "admin";
@@ -164,7 +165,9 @@ public class CreateClassroomActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 // Navigate to your invitation code and close this screen.
+
                 Intent intent = new Intent(CreateClassroomActivity.this, ShareCodeActivity.class);
+                intent.putExtra("classroom_document_ID", classRoom.getID());
                 startActivity(intent);
                 finish();
             }
