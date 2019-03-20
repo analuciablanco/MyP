@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="144dp"
         android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
+        android:clickable="false"
         android:focusable="true"
         android:orientation="horizontal"
         android:padding="16dp"
@@ -33,7 +33,7 @@
             app:civ_border_width="2dp" />
 
         <TextView
-            android:id="@+id/classroom_title"
+            android:id="@+id/username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myp.FireBase.models.User;
 import com.example.myp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -56,6 +57,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
     //vars
     private FirebaseFirestore mDb;
     private ArrayList<ClassRoomMember> classroomMemberArray = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Classroom> classroomArrayList = new ArrayList<>();
     private ListenerRegistration mClassromEventListener;
 
@@ -107,8 +109,6 @@ public class JoinClassroomActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     private void verifyAccessCode(final String accessCode) {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -172,20 +172,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
         }
     }
 
-    private boolean attempJoinClassroomMember(final String uid) {
-        boolean memberDontExist = true;
-
-        for(int i=0; i<classroomMemberArray.size(); i++){
-            String UIDmembers = arrayIdMemberUser[i];
-            if(uid.equals(UIDmembers)){
-                memberDontExist = false;
-                i= classroomMemberArray.size() + 1;
-            }
-        }
-        return  memberDontExist;
-    }
-
-    private boolean attempJoinClassroom() {
+   private boolean attempJoinClassroom() {
         boolean authentication = true;
 
         String accessCode = textInputCode.getText().toString().trim();
@@ -223,7 +210,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                showMessage("Error, no se econtro ning�n aula. (ERROR REAL =" + e.getMessage());
+                showMessage("Error, no se econtro ningun aula. (ERROR REAL =" + e.getMessage());
             }
         });
     }

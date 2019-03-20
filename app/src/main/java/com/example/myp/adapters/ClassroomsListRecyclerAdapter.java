@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ClassroomsListRecyclerAdapter
         extends RecyclerView.Adapter<ClassroomsListRecyclerAdapter.ViewHolder>{
 
-    private ArrayList<Classroom> mClassrooms = new ArrayList<>();
+    private ArrayList<Classroom> mClassrooms;
     private ClassroomRecyclerClickListener mClassroomRecyclerClickListener;
 
     public ClassroomsListRecyclerAdapter(ArrayList<Classroom> classrooms, ClassroomRecyclerClickListener classroomRecyclerClickListener) {
@@ -60,7 +60,7 @@ public class ClassroomsListRecyclerAdapter
 
         public ViewHolder(View itemView, ClassroomRecyclerClickListener clickListener) {
             super(itemView);
-            classroomGrade = itemView.findViewById(R.id.classroom_title);
+            classroomGrade = itemView.findViewById(R.id.username);
             this.clickListener = clickListener;
             itemView.setOnClickListener(this);
         }

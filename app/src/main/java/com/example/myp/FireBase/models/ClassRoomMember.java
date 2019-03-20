@@ -6,12 +6,14 @@ import android.os.Parcelable;
 // FireBase Class to add Parents and Teachers to a ClassRoom
 public class ClassRoomMember implements Parcelable{
 
+    private String user_full_name;
     private String member_id;
     private String user_id;
     private String role;
     private String member_status;
 
-    private ClassRoomMember(String member_id,String user_id, String role){
+    private ClassRoomMember(String user_full_name,String member_id,String user_id, String role, String member_status){
+        this.user_full_name = user_full_name;
         this.member_id = member_id;
         this.user_id = user_id;
         this.role = role;
@@ -20,7 +22,9 @@ public class ClassRoomMember implements Parcelable{
     public ClassRoomMember(){
 
     }
+
     protected ClassRoomMember (Parcel in){
+        user_full_name = in.readString();
         member_id = in.readString();
         user_id = in.readString();
         role = in.readString();
@@ -38,6 +42,9 @@ public class ClassRoomMember implements Parcelable{
             return new ClassRoomMember[size];
         }
     };
+
+    public String getUser_full_name(){return  user_full_name;}
+    public void  setUser_full_name(String user_full_name){this.user_full_name = user_full_name;}
 
     public String  getMember_id (){
         return member_id;
@@ -60,7 +67,6 @@ public class ClassRoomMember implements Parcelable{
         this.role = role;
     }
 
-
     public String getMember_status(){return  member_status;}
     public void  setMember_status(String member_status){this.member_status = member_status;}
 
@@ -71,6 +77,7 @@ public class ClassRoomMember implements Parcelable{
                 ",userID='" + user_id + '\'' +
                 ",member_role='" + role + '\'' +
                 ",member_status='" + member_status + '\'' +
+                ",user_full_name='" + user_full_name + '\'' +
                 '}';
     }
 
@@ -81,6 +88,7 @@ public class ClassRoomMember implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(user_full_name);
         dest.writeString(member_id);
         dest.writeString(user_id);
         dest.writeString(role);
