@@ -43,7 +43,7 @@ public class ClassroomsListRecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        ((ViewHolder)holder).classroomGrade.setText(((Classroom)(mClassrooms.toArray()[position])).getGrade());
+//        ((ViewHolder)holder).userName.setText(((Classroom)(mClassrooms.toArray()[position])).getGrade());
         ((ViewHolder)holder).classroomGrade.setText(mClassrooms.get(position).titleTag());
     }
 
