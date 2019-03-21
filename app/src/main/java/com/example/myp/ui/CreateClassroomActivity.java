@@ -174,8 +174,6 @@ public class CreateClassroomActivity extends AppCompatActivity {
         newMemberRef = newUserRef
                 .collection(getString(R.string.collection_classrom_members)).document();
 
-        classroomMember.setMember_id(newMemberRef.getId());
-
         newMemberRef.set(classroomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

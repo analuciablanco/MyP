@@ -76,7 +76,7 @@ public class ChatListActivity extends AppCompatActivity implements
     }
 
     // Function to display the Classroom members with the RecyclerView
-    private void getChatLists(){
+    /*private void getChatLists(){
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
@@ -84,7 +84,7 @@ public class ChatListActivity extends AppCompatActivity implements
 
         CollectionReference
                 classroomMembersRef = mDb.collection(getString(R.string.collection_classrooms))
-                .document(classroomID)
+                .document(classroomID);
 
         mChatListEventListener = chatListCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -109,7 +109,7 @@ public class ChatListActivity extends AppCompatActivity implements
                 }
             }
         });
-    }
+    }*/
 
     // Specific Navigation to the tapped chat list
     @Override
@@ -131,7 +131,7 @@ public class ChatListActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        getChatLists();
+        //getChatLists();
     }
 
 

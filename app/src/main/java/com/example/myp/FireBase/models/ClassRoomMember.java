@@ -6,29 +6,26 @@ import android.os.Parcelable;
 // FireBase Class to add Parents and Teachers to a ClassRoom
 public class ClassRoomMember implements Parcelable{
 
-    private String user_full_name;
-    private String member_id;
     private String user_id;
     private String role;
     private String member_status;
+    private String member_full_name;
 
-    private ClassRoomMember(String user_full_name,String member_id,String user_id, String role, String member_status){
-        this.user_full_name = user_full_name;
-        this.member_id = member_id;
+    private ClassRoomMember(String user_id, String role, String member_status, String member_full_name){
         this.user_id = user_id;
         this.role = role;
         this.member_status = member_status;
+        this.member_full_name = member_full_name;
     }
     public ClassRoomMember(){
 
     }
 
     protected ClassRoomMember (Parcel in){
-        user_full_name = in.readString();
-        member_id = in.readString();
         user_id = in.readString();
         role = in.readString();
         member_status = in.readString();
+        member_full_name = in.readString();
     }
 
     public static final Creator<ClassRoomMember> CREATOR = new Creator<ClassRoomMember>() {
@@ -42,16 +39,6 @@ public class ClassRoomMember implements Parcelable{
             return new ClassRoomMember[size];
         }
     };
-
-    public String getUser_full_name(){return  user_full_name;}
-    public void  setUser_full_name(String user_full_name){this.user_full_name = user_full_name;}
-
-    public String  getMember_id (){
-        return member_id;
-    }
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
-    }
 
     public String getUser_id (){
         return user_id;
@@ -70,14 +57,16 @@ public class ClassRoomMember implements Parcelable{
     public String getMember_status(){return  member_status;}
     public void  setMember_status(String member_status){this.member_status = member_status;}
 
+    public String getMember_full_name(){return member_full_name;}
+    public void setMember_full_name(String member_full_name){this.member_full_name = member_full_name;}
+
     @Override
     public String toString(){
         return "classroomMembers{" +
-                "memberID='" + member_id + '\'' +
-                ",userID='" + user_id + '\'' +
+                "userID='" + user_id + '\'' +
                 ",member_role='" + role + '\'' +
                 ",member_status='" + member_status + '\'' +
-                ",user_full_name='" + user_full_name + '\'' +
+                ",member_full_name='" + member_full_name + '\'' +
                 '}';
     }
 
@@ -88,10 +77,9 @@ public class ClassRoomMember implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(user_full_name);
-        dest.writeString(member_id);
         dest.writeString(user_id);
         dest.writeString(role);
         dest.writeString(member_status);
+        dest.writeString(member_full_name);
     }
 }

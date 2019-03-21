@@ -45,7 +45,7 @@ public class ChatListRecyclerAdapter
 
 //      ((ViewHolder)holder).username.setText(((Classroom)(mUsers.toArray()[position])).getGrade());
         ((ViewHolder)holder).username.setText("WUUU");
-        //((ViewHolder)holder).username.setText(mClassRoomMember.get(position).getUser_full_name());
+        //((ViewHolder)holder).username.setText(mClassRoomMember.get(position).getMember_full_name());
     }
 
     @Override
