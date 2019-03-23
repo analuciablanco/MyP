@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,6 +53,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
     private ArrayList<User> usersArrayList = new ArrayList<>();
     private ArrayList<Classroom> classroomArrayList = new ArrayList<>();
     private ListenerRegistration mClassromEventListener;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private boolean memberExists = false;
 
@@ -139,11 +141,21 @@ public class JoinClassroomActivity extends AppCompatActivity {
         classRoomMember.setUser_id(FirebaseAuth.getInstance().getUid());
         classRoomMember.setRole(memberRole);
         classRoomMember.setMember_status(member_status);
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        classRoomMember.setMember_full_name(firebaseUser.getDisplayName());
+
+
 
         compareIDToGetName();
 
-        // AQUI FALTA DECLARAR EL NUMERO DEL ARRAY PARA ACCEDER AL NOMBRE DE MIEMBRO DEL SALÓN Y GUARDAR SU NOMRBE EN EL ARRAY
-        classRoomMember.setMember_full_name(array_member_full_name[1325000000]);
+       /* // AQUI YA GUARDA EL NOMBRE DE LOS MIEMBROS RECORRIENDO EL ARRAY Y COMPARANDO, PERO PUES ARRIBA YA LO HACE CON EL NOMBRE QUE TIENE EL AUTH
+        for (int i = 0; i < usersArrayList.size(); i++) {
+            if(usersArrayList.get(i).getUserID().equals(FirebaseAuth.getInstance().getUid())){
+                classRoomMember.setMember_full_name(usersArrayList.get(i).getUserFullName());
+                //Log.d(TAG, "NOMRBRE USER " + usersArrayList.get(i).getUserFullName());
+            }
+
+        }*/
 
         // This string specifies the ID of the user trying to join the classroom
         final String uid = FirebaseAuth.getInstance().getUid();
@@ -151,12 +163,14 @@ public class JoinClassroomActivity extends AppCompatActivity {
         arrayCodeTeacher = new String[classroomArrayList.size()];
         for (int i = 0; i < classroomMemberArray.size(); i++) {
             String UIDmembers = arrayIdMemberUser[i];
-            //showMessage(UIDmembers);
+            Log.d(TAG, "UID "+ UIDmembers);
             if (uid.equals(UIDmembers)) {
                 memberExists = true;
-                break;
-            } else memberExists = false;
+                i += classroomMemberArray.size();
+            }
+            else memberExists = false;
         }
+
         if (!memberExists) {
             DocumentReference newMemberRef = mDb.collection(getString(R.string.collection_classrooms)).
                     document(classroomID).collection(getString(R.string.collection_classrom_members)).document();
@@ -237,10 +251,6 @@ public class JoinClassroomActivity extends AppCompatActivity {
                         User user = documentSnapshot.toObject(User.class);
                         usersArrayList.add(user);
                     }
-                }
-
-                for (int i = 0; i < usersArrayList.size(); i++) {
-                    array_member_full_name[i] = usersArrayList.get(i).getUserFullName();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
