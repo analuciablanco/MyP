@@ -11,33 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_Accept_Code"
-            android:layout_width="331dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorAccent"
-            android:text="@string/next"
-            android:textColor="@color/colorIcons"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditTextInvite" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"/>
-
         <!-- Logo -->
         <ImageView
             android:id="@+id/imageView"
@@ -52,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+        <!-- Label -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="329dp"
@@ -65,9 +39,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+        <!-- Invitation Code Input -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputEditTextInvite"
-            android:layout_width="314dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,12 +53,31 @@
             app:layout_constraintVertical_bias="0.356">
 
             <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
+                android:id="@+id/textInputCode"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/insert_code"
-                android:selectAllOnFocus="false" />
-
+                android:imeOptions="actionDone"
+                android:selectAllOnFocus="false"
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
+        <!-- Button to join a classroom -->
+        <Button
+            android:id="@+id/btn_Accept_Code"
+            android:layout_width="330dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorAccent"
+            android:text="@string/next"
+            android:textColor="@color/colorIcons"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputEditTextInvite" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
