@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +25,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 // Login
 public class MainActivity extends AppCompatActivity {
@@ -103,6 +106,13 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     // Sign is was successful; print congrats message
                     showMessage("Has iniciado sesión exitosamente.");
+
+                    //Asi puedes mostrar el nombre del usuario desde el authentication
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    String TAG = "NOMBRE DESDE EL AUTH";
+                    Log.d(TAG, firebaseUser.getDisplayName());
+                    //
+
 
                     // Navigate to home screen
                     Intent intent = new Intent(MainActivity.this, ClassroomsListActivity.class);

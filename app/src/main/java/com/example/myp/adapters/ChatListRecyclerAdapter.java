@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.myp.FireBase.models.User;
+import com.example.myp.FireBase.models.ClassRoomMember;
 import com.example.myp.R;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class ChatListRecyclerAdapter
         extends RecyclerView.Adapter<ChatListRecyclerAdapter.ViewHolder>{
 
-    private ArrayList<User> mUsers = new ArrayList<>();
+    private ArrayList<ClassRoomMember> mClassRoomMember;
     private ChatListRecyclerClickListener mChatListRecyclerClickListener;
 
-    public ChatListRecyclerAdapter(ArrayList<User> users, ChatListRecyclerClickListener chatListRecyclerClickListener) {
-        this.mUsers = users;
+    public ChatListRecyclerAdapter(ArrayList<ClassRoomMember> classRoomMembers, ChatListRecyclerClickListener chatListRecyclerClickListener) {
+        this.mClassRoomMember = classRoomMembers;
         mChatListRecyclerClickListener = chatListRecyclerClickListener;
     }
 
@@ -43,24 +43,25 @@ public class ChatListRecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        ((ViewHolder)holder).userName.setText(((Classroom)(mUsers.toArray()[position])).getGrade());
-        ((ViewHolder)holder).userName.setText(mUsers.get(position).getUserFullName());
+//      ((ViewHolder)holder).username.setText(((Classroom)(mUsers.toArray()[position])).getGrade());
+        ((ViewHolder)holder).username.setText("WUUU");
+        //((ViewHolder)holder).username.setText(mClassRoomMember.get(position).getMember_full_name());
     }
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mClassRoomMember.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener
     {
-        TextView userName;
+        TextView username;
         ChatListRecyclerClickListener clickListener;
 
         public ViewHolder(View itemView, ChatListRecyclerClickListener clickListener) {
             super(itemView);
-            userName = itemView.findViewById(R.id.classroom_title);
+            username = itemView.findViewById(R.id.username);
             this.clickListener = clickListener;
             itemView.setOnClickListener(this);
         }

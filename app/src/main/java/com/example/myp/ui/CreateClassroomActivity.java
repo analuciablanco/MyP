@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import com.example.myp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +48,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
     // Database variable Declaration
     private FirebaseFirestore aulaDB = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,16 +168,15 @@ public class CreateClassroomActivity extends AppCompatActivity {
 
     // Function to insert the class's creator as an admin
     private void insertMemberAdmin(final String adminRole, DocumentReference newUserRef, final String member_status) {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
         ClassRoomMember classroomMember = new ClassRoomMember();
-
         classroomMember.setUser_id(FirebaseAuth.getInstance().getUid());
         classroomMember.setRole(adminRole);
         classroomMember.setMember_status(member_status);
+        classroomMember.setMember_full_name(firebaseUser.getDisplayName());
 
         newMemberRef = newUserRef
                 .collection(getString(R.string.collection_classrom_members)).document();
-
-        classroomMember.setMember_id(newMemberRef.getId());
 
         newMemberRef.set(classroomMember).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
