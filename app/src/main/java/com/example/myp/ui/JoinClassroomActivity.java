@@ -37,6 +37,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.example.myp.FireBase.models.Classroom;
 import com.example.myp.FireBase.models.ClassRoomMember;
 
+//import {FirestoreSQL} from 'firesql';
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // Clase para unirte a Salones
@@ -61,6 +64,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
     private ClassRoomMember mclassroomMember;
     Query mQuery;
 
+
     String member_status = "ACTIVO";
     String memberRoleParent = "member";
     String memberRoleTeacher = "admin";
@@ -78,8 +82,8 @@ public class JoinClassroomActivity extends AppCompatActivity {
         initViews();
 
         mDb = FirebaseFirestore.getInstance();
-        getClassrooms();
-        getUsers();
+        //getClassrooms();
+        //getUsers();
 
         textInputCode.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -97,8 +101,9 @@ public class JoinClassroomActivity extends AppCompatActivity {
                 hideSoftKeyboard();
                 if (attempJoinClassroom()) {
                     String accessCode = textInputCode.getText().toString();
+                    getClassrooms(accessCode);
 
-                    verifyAccessCode(accessCode);
+                    //verifyAccessCode(accessCode);
                 }
             }
         });
@@ -131,7 +136,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                showMessage("Error, no se econtro ningun aula. (ERROR REAL =" + e.getMessage());
+                showMessage("Error, no se encontro ningun aula. (ERROR REAL =" + e.getMessage());
             }
         });
     }
@@ -143,19 +148,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
         classRoomMember.setMember_status(member_status);
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         classRoomMember.setMember_full_name(firebaseUser.getDisplayName());
-
-
-
         compareIDToGetName();
-
-       /* // AQUI YA GUARDA EL NOMBRE DE LOS MIEMBROS RECORRIENDO EL ARRAY Y COMPARANDO, PERO PUES ARRIBA YA LO HACE CON EL NOMBRE QUE TIENE EL AUTH
-        for (int i = 0; i < usersArrayList.size(); i++) {
-            if(usersArrayList.get(i).getUserID().equals(FirebaseAuth.getInstance().getUid())){
-                classRoomMember.setMember_full_name(usersArrayList.get(i).getUserFullName());
-                //Log.d(TAG, "NOMRBRE USER " + usersArrayList.get(i).getUserFullName());
-            }
-
-        }*/
 
         // This string specifies the ID of the user trying to join the classroom
         final String uid = FirebaseAuth.getInstance().getUid();
@@ -206,34 +199,52 @@ public class JoinClassroomActivity extends AppCompatActivity {
         return authentication;
     }
 
-    private void getClassrooms() {
+    private void getClassrooms(final String accessCode) {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
-        mDb.setFirestoreSettings(settings);
-        CollectionReference classroomRef = mDb.collection(getString(R.string.collection_classrooms));
-        classroomRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        Classroom classroom = documentSnapshot.toObject(Classroom.class);
-                        classroomArrayList.add(classroom);
+        mDb.collection(getString(R.string.collection_classrooms)).whereEqualTo("code_parent", accessCode)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        classroomArrayList.clear();
+                       if (task.isSuccessful()){
+                           for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                               Classroom classroom = documentSnapshot.toObject(Classroom.class);
+                               classroomArrayList.add(classroom);
+                           }
+                           //Log.d(TAG, " ID:" + classroomArrayList.get(0).getID() + " code parent: " + classroomArrayList.get(0).getCode_parent());
+                       }
+
                     }
-                }
-                arrayCodeTeacher = new String[classroomArrayList.size()];
-                arrayCodeParent = new String[classroomArrayList.size()];
-                for (int i = 0; i < classroomArrayList.size(); i++) {
-                    arrayCodeParent[i] = (String) classroomArrayList.get(i).getCode_parent();
-                    arrayCodeTeacher[i] = (String) classroomArrayList.get(i).getCode_teacher();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 showMessage("Error, no se econtro ningun aula. (ERROR REAL =" + e.getMessage());
             }
         });
+        /*mDb.collection(getString(R.string.collection_classrooms)).whereEqualTo("code_teacher", accessCode)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //classroomArrayList.clear();
+                        if (task.isSuccessful()){
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                Classroom classroom = documentSnapshot.toObject(Classroom.class);
+                                classroomArrayList.add(classroom);
+                            }
+                           //Log.d(TAG, " ID:" + classroomArrayList.get(classroomArrayList.size()).getID() + " code teacher: " + classroomArrayList.get(classroomArrayList.size()).getCode_parent());
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                showMessage("Error, no se econtro ningun aula. (ERROR REAL =" + e.getMessage());
+            }
+        });*/
     }
 
     // All of this bullshit is simply to get the User Name of the desired member in the classroom
@@ -287,7 +298,7 @@ public class JoinClassroomActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "No encontro nada.");
+                Log.d(TAG, "No e ncontro nada.");
             }
         });
     }

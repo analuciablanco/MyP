@@ -4,14 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.myp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 // Pantalla principal tras iniciar sesión
 public class HomeActivity extends AppCompatActivity {
 
+    String TAG = "UID:";
     // Linear Layout (XML) declaration
     LinearLayout createClassroom;
     LinearLayout joinClassroom;
@@ -90,6 +95,31 @@ public class HomeActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent classroomsList = new Intent(HomeActivity.this, ClassroomsListActivity.class);
         startActivity(classroomsList);
+        finish();
+    }
+    // This function creates the delete button on the action bar and the sign out
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.delete_button_classrooms,menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    //This function validate and call when you press  the sign out item in the menu.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+        //mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainActivity);
         finish();
     }
 }
