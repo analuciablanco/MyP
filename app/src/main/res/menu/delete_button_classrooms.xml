@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/action_logout"
-        android:title="Cerrar sesión"
+        android:title="Sign Out"
         app:showAsAction="never" />
 
     <item

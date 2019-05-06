@@ -187,7 +187,7 @@ public class CreateClassroomActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                showMessage("Fallo en el registro del aula.");
+                showMessage("Falló en el registro del aula.");
             }
         });
     }

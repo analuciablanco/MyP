@@ -97,8 +97,8 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
         mDb.setFirestoreSettings(settings);
-        CollectionReference classroomRef = mDb.collection(getString(R.string.collection_classrooms);
-        classroomRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        CollectionReference classroomRef = mDb.collection(getString(R.string.collection_classrooms));
+        /*classroomRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -132,10 +132,10 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                     });
         }
 
-    }
+    }*/
 
 
-        /*mClassroomEventListener = .addSnapshotListener(new EventListener<QuerySnapshot>() {
+        mClassroomEventListener = classroomRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 Log.d(TAG, "onEvent: called.");
@@ -158,8 +158,8 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                     mClassroomsListRecyclerAdapter.notifyDataSetChanged();
                 }
             }
-        });*/
-
+        });
+    }
 
     // Specific Navigation to the tapped chat list
     @Override
@@ -225,6 +225,10 @@ public class ClassroomsListActivity extends AppCompatActivity implements
 
     private void logout() {
         FirebaseAuth.getInstance().signOut();
+        Intent mainActivity = new Intent(ClassroomsListActivity.this, MainActivity.class);
+        //mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainActivity);
+        finish();
     }
 
     // Function to initialize the XML objects as Java variables
