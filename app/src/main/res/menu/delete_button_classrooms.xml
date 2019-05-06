@@ -7,4 +7,5 @@
         android:icon="@drawable/deletebutton"
         android:title="@string/classrooms_list_delete"
         app:showAsAction="ifRoom"/>
+
 </menu>
