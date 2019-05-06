@@ -8,12 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.myp.FireBase.models.User;
 import com.example.myp.R;
 import com.example.myp.adapters.ChatRoomsAdapter;
 import com.example.myp.adapters.UsersListRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -167,6 +169,24 @@ public class UsersListActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.delete_button_classrooms,menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    //This function validate and call when you press  the sign out item in the menu.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent mainActivity = new Intent(UsersListActivity.this, MainActivity.class);
+        //mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainActivity);
+        finish();
     }
 
     // Function to initialize the XML objects as Java variables
