@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
                     showMessage("Has iniciado sesión exitosamente.");
 
                     //Asi puedes mostrar el nombre del usuario desde el authentication
-                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    /*FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     String TAG = "NOMBRE DESDE EL AUTH";
-                    Log.d(TAG, firebaseUser.getDisplayName());
+                    //Log.d(TAG, firebaseUser.getDisplayName());*/
                     //
 
 

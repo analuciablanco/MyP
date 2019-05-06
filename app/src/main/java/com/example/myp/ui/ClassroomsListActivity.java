@@ -2,8 +2,11 @@ package com.example.myp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +16,11 @@ import com.example.myp.R;
 import com.example.myp.adapters.ChatRoomsAdapter;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
 import com.example.myp.FireBase.models.Classroom;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -24,6 +31,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import javax.annotation.Nullable;
 
@@ -44,6 +54,8 @@ public class ClassroomsListActivity extends AppCompatActivity implements
     private ListenerRegistration mClassroomEventListener;
     private FirebaseFirestore mDb;
 
+    private ArrayList<Classroom> classrooms = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +73,7 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         // Recycler View Manipulation
         initClassroomsRecyclerView();
     }
+
 
     // Checks if the + action button has been tapped
     @Override
@@ -85,11 +98,45 @@ public class ClassroomsListActivity extends AppCompatActivity implements
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
         mDb.setFirestoreSettings(settings);
+        CollectionReference classroomRef = mDb.collection(getString(R.string.collection_classrooms));
+        /*classroomRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                      Classroom classroom = documentSnapshot.toObject(Classroom.class);
+                     classrooms.add(classroom);
+                    }
+                }
+            }
+        });
+        for(int i=0; i<=classrooms.size(); i++) {
 
-        CollectionReference classroomsCollection = mDb
-                .collection(getString(R.string.collection_classrooms));
+            mDb.collection(getString(R.string.collection_classrom_members)).whereEqualTo("user_id", FirebaseAuth.getInstance().getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        mClassroomEventListener = classroomsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                    Classroom classroom = doc.toObject(Classroom.class);
+                                    if (!mClassroomIds.contains(classroom.getID())) {
+                                        mClassroomIds.add(classroom.getID());
+                                        mClassrooms.add(classroom);
+                                    }
+                                }
+                                Log.d(TAG, "onEvent: number of classrooms: " + mClassrooms.size());
+                                mClassroomsListRecyclerAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+        }
+
+    }*/
+
+
+        mClassroomEventListener = classroomRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 Log.d(TAG, "onEvent: called.");
@@ -160,11 +207,30 @@ public class ClassroomsListActivity extends AppCompatActivity implements
         NavUtils.navigateUpFromSameTask(this);
     }
 
-    // This function creates the delete button on the action bar
+    // This function creates the delete button on the action bar and the sign out
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.delete_button_classrooms,menu);
         return super.onCreateOptionsMenu(menu);
+
+    }
+    //This function validate and call when you press  the sign out item menu.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent mainActivity = new Intent(ClassroomsListActivity.this, MainActivity.class);
+        //mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainActivity);
+        finish();
     }
 
     // Function to initialize the XML objects as Java variables
