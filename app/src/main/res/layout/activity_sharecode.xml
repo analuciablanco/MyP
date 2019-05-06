@@ -27,7 +27,8 @@
             app:layout_constraintEnd_toStartOf="@+id/sharecode_textview_insertcode_parents"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_parents"
-            app:srcCompat="@drawable/copy" />
+            app:srcCompat="@drawable/copy"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/sharecode_textview_parents"
@@ -101,7 +102,8 @@
             app:layout_constraintEnd_toStartOf="@+id/sharecode_textview_insertcode_teachers"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_teachers"
-            app:srcCompat="@drawable/copy" />
+            app:srcCompat="@drawable/copy"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/sharecode_textview_insertcode_teachers"
@@ -133,7 +135,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode_parents"
             app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_parents"
-            app:srcCompat="@drawable/share" />
+            app:srcCompat="@drawable/share"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/sharecode_imagebutton_share_teachers"
@@ -148,7 +151,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sharecode_textview_insertcode_teachers"
             app:layout_constraintTop_toBottomOf="@+id/sharecode_textview_teachers"
-            app:srcCompat="@drawable/share" />
+            app:srcCompat="@drawable/share"
+            tools:ignore="ContentDescription" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -60,6 +60,11 @@
             android:name=".ui.ChatRoomActivity"
             android:label="@string/collection_chat"
             android:parentActivityName=".ui.HomeActivity"/>
+
+        <activity
+            android:name=".ui.UsersListActivity"
+            android:label="@string/collection_chat"
+            android:parentActivityName=".ui.HomeActivity"/>
     </application>
 
 </manifest>

@@ -11,7 +11,6 @@ import com.example.myp.R;
 import com.example.myp.FireBase.models.Classroom;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class ClassroomsListRecyclerAdapter
         extends RecyclerView.Adapter<ClassroomsListRecyclerAdapter.ViewHolder>{

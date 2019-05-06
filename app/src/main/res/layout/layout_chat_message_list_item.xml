@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,7 +11,8 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:id="@+id/chat_message_username"/>
+        android:id="@+id/chat_message_username"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,5 +21,6 @@
         android:textColor="@color/colorPrimaryText"
         app:layout_constraintTop_toBottomOf="@+id/chat_message_username"
         android:layout_marginTop="5dp"
-        android:id="@+id/chat_message_message"/>
+        android:id="@+id/chat_message_message"
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

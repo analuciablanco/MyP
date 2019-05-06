@@ -50,7 +50,8 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="UnusedAttribute" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +97,8 @@
                 android:hint="@string/prompt2_password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                tools:ignore="UnusedAttribute" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -137,7 +139,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_first_last_name"
-                android:inputType="textCapSentences"/>
+                android:inputType="textCapSentences"
+                tools:ignore="Autofill" />
 
         </android.support.design.widget.TextInputLayout>
 
