@@ -11,6 +11,7 @@ import com.example.myp.R;
 import com.example.myp.FireBase.models.Classroom;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class ClassroomsListRecyclerAdapter
         extends RecyclerView.Adapter<ClassroomsListRecyclerAdapter.ViewHolder>{
@@ -23,19 +24,16 @@ public class ClassroomsListRecyclerAdapter
         mClassroomRecyclerClickListener = classroomRecyclerClickListener;
     }
 
-//    private Set<Classroom> mClassrooms = new HashSet<>();
-//    private ClassroomRecyclerClickListener mClassroomRecyclerClickListener;
-//
-//    public ClassroomsListRecyclerAdapter(Set<Classroom> chatrooms, ClassroomRecyclerClickListener chatroomRecyclerClickListener) {
-//        this.mClassrooms = chatrooms;
-//        mClassroomRecyclerClickListener = chatroomRecyclerClickListener;
-//    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_classrooms_list_items, parent, false);
-        final ViewHolder holder = new ViewHolder(view, mClassroomRecyclerClickListener);
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.layout_classrooms_list_items,
+                parent,
+                false
+        );
+        final ViewHolder holder = new ViewHolder(view,
+                mClassroomRecyclerClickListener);
 
         return holder;
     }
@@ -72,6 +70,6 @@ public class ClassroomsListRecyclerAdapter
     }
 
     public interface ClassroomRecyclerClickListener {
-        public void onClassroomSelected(int position);
+        void onClassroomSelected(int position);
     }
 }

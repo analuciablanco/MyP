@@ -66,11 +66,13 @@
 
     <string name="sharecode_insertcode">Code</string>
     <string name="sharecode_to_classrooms">Continue to Classrooms</string>
+    <string name="hint_message_text">Write your message...</string>
 
     <!-- FireStore Strings -->
     <string name="collection_users">Users</string>
     <string name="collection_classrooms">Classrooms</string>
     <string name="collection_chat_messages">Chat Messages</string>
+    <string name="collection_chat">Chat</string>
     <string name="collection_chatroom_user_list">User List</string>
     <string name="collection_classrom_members">Classrooms Members</string>
 
@@ -86,6 +88,8 @@
     <string name="classrooms_list_delete">Delete classroom</string>
     <string name="chat_list_delete">Delete chat</string>
     <string name="classrooms_info">Show Classroom\'s codes</string>
+    <string name="error_empty_message">Message cannot be empty!</string>
+    <string name="error_message_failed">Message failed to send!</string>
 
 
     <!-- Intent extras -->

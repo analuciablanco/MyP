@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.example.myp.R;
+import com.example.myp.adapters.ChatRoomsAdapter;
 import com.example.myp.adapters.ClassroomsListRecyclerAdapter;
 import com.example.myp.FireBase.models.Classroom;
 import com.google.firebase.firestore.CollectionReference;
@@ -59,6 +60,8 @@ public class ClassroomsListActivity extends AppCompatActivity implements
 
         // Recycler View Manipulation
         initClassroomsRecyclerView();
+
+
     }
 
     // Checks if the + action button has been tapped
@@ -115,11 +118,13 @@ public class ClassroomsListActivity extends AppCompatActivity implements
     }
 
     // Specific Navigation to the tapped chat list
-    @Override
-    public void onClassroomSelected(int position) {
-        navChatListActivity(mClassrooms.get(position));
-        // navChatListActivity( ((Classroom)(mClassrooms.toArray()[position])));
-    }
+                @Override
+                public void onClassroomSelected(int position) {
+                    Intent intent = new Intent(ClassroomsListActivity.this, ChatRoomActivity.class);
+                    //intent.putExtra(ChatRoomActivity.CHAT_ROOM_ID, chatRoom.getId());
+                    //intent.putExtra(ChatRoomActivity.CHAT_ROOM_NAME, chatRoom.getName());
+                    startActivity(intent);
+                }
 
     // Removes the classroom listener linked to FireBase once you close the app
     @Override
@@ -146,9 +151,9 @@ public class ClassroomsListActivity extends AppCompatActivity implements
 
     // Navigate to the chat list screen once a classroom is tapped
     private void navChatListActivity(Classroom classroom){
-        Intent chatList = new Intent(ClassroomsListActivity.this, ChatListActivity.class);
-        chatList.putExtra(getString(R.string.intent_chatroom), classroom);
-        startActivity(chatList);
+        Intent chat = new Intent(ClassroomsListActivity.this, ChatRoomsAdapter.class);
+        startActivity(chat);
+        finish();
     }
 
     // Function (different from finish()) to navigate back to parent layout.

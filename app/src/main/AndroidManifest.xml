@@ -52,18 +52,13 @@
             android:parentActivityName=".ui.HomeActivity"/>
 
         <activity
-            android:name=".ui.ChatListActivity"
-            android:label="@string/collection_classrooms"
-            android:parentActivityName=".ui.ClassroomsListActivity"/>
-
-        <activity
-            android:name=".ui.ChatActivity"
-            android:label="@string/collection_chat_messages"
-            android:parentActivityName=".ui.ChatListActivity"/>
-
-        <activity
             android:name=".ui.ShareCodeActivity"
             android:label="@string/collection_chat_messages"
+            android:parentActivityName=".ui.HomeActivity"/>
+
+        <activity
+            android:name=".ui.ChatRoomActivity"
+            android:label="@string/collection_chat"
             android:parentActivityName=".ui.HomeActivity"/>
     </application>
 
